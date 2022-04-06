@@ -1,2 +1,2 @@
-CHARSET_ADR  rcdata 'res/snake.fnt' 2
+SCREEN_ADR		rcdata 'res/title.scr'
 

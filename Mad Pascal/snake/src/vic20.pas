@@ -1,3 +1,5 @@
+{$r res/gfx.rc}
+
 {$librarypath 'src/systems'}
 
 uses sys_vic20;

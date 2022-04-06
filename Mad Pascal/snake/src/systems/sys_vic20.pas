@@ -173,8 +173,8 @@ procedure wait; assembler; overload;
 procedure wait(n: byte); assembler; overload; register;
 procedure set_vbi(a: pointer); assembler; register;
 procedure reset_vbi; assembler;
-procedure clrscr; assembler; overload;
-procedure clrscr(v, c: byte); assembler; register; overload;
+procedure clrscr(v: byte); assembler; register;
+procedure clrcol(c: byte); assembler; register;
 procedure set_xy(x, y: byte);
 procedure print(col: byte; s: pointer); assembler; register;
 procedure put_char(col, c: byte); assembler; register;
@@ -411,10 +411,10 @@ end;
 
 //:-------------------------------------------------------------:
 
-procedure clrscr; assembler; overload;
+procedure clrscr(v: byte); assembler; register;
 asm
       ldy #0
-      lda #C_SPACE
+      lda v
 @     sta SCREEN_ADR,y
       sta SCREEN_ADR + $100,y
       sta SCREEN_ADR + $200,y
@@ -424,16 +424,9 @@ end;
 
 //:-------------------------------------------------------------:
 
-procedure clrscr(v, c: byte); assembler; register; overload;
+procedure clrcol(c: byte); assembler; register;
 asm
       ldy #0
-      lda v
-@     sta SCREEN_ADR,y
-      sta SCREEN_ADR + $100,y
-      sta SCREEN_ADR + $200,y
-      iny
-      bne @-
-
       lda c
 @     sta COLORMAP_ADR,y
       sta COLORMAP_ADR + $100,y

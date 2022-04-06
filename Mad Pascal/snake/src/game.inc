@@ -72,17 +72,15 @@ var
 
 procedure welcome_scr; inline;
 begin
-  clrscr;
-
   t0b := ROW_SIZE shr 1; t2b := ROW_SIZE shr 1;
 
   t1b := length(txt_info) shr 1; dec(t0b, t1b);
-  set_xy(t0b, COL_SIZE shr 1 - 2);
-  print(GAME_WHITE, txt_info);
+  set_xy(t0b, 2);
+  print(GAME_YELLOW, txt_info);
 
   t1b := length(txt_turbo) shr 1; dec(t2b, t1b);
-  set_xy(t2b, COL_SIZE shr 1);
-  print(GAME_WHITE, txt_turbo);
+  set_xy(t2b, COL_SIZE shr 1 + 10);
+  print(GAME_YELLOW, txt_turbo);
 
   repeat until (JOY and JOY_FIRE) <> 0;
 end;
@@ -361,7 +359,7 @@ end;
 
 procedure set_game;
 begin
-  clrscr; draw_frame; draw_bottom_line; put_snake; print_hi_score;
+  clrscr(C_SPACE); draw_frame; draw_bottom_line; put_snake; print_hi_score;
 
   time_entity    := TIME_E_SET;
   level_up       := LEVEL_THOLD;
@@ -402,12 +400,12 @@ end;
 //o-------------------------------------------------------------o
 
 begin
+  clrcol(GAME_WHITE);
+
   sys_init;
 
   game_over := true; set_vbi(@vbi);
-
   welcome_scr;
-
   hi_score := 0; set_game;
 
   repeat
