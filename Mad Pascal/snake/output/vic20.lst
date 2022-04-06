@@ -2626,7 +2626,7 @@ Macro: RESOURCE.RCDATA [Source: resource.asm]
      6 1B04				org main.SYS_VIC20.SCREEN_ADR
      8 1C00 20 20 20 20 20 20 + 	ins 'res/title.scr',0
     10 					.print '$R RCDATA  ',main.SYS_VIC20.SCREEN_ADR,'..',*-1," 'res/title.scr'"
-    10 				$R RCDATA  $1C00..$1FFF 'res/title.scr'
+    10 				$R RCDATA  $1C00..$1EED 'res/title.scr'
 Source: vic20.a65
   2620 				.endl
   2621
