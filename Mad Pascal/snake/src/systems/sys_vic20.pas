@@ -112,8 +112,8 @@ unit sys_vic20;
   $031a-$03ff free
   $1000-$11ff custom charset memory       snake use only 2 pages
   $1200-$1bff free (code)
-  $1c00-$1eee custom screen memory        25 * 30 = 750 bytes
-  $1ef0-$1fff free bytes                  16 + 256 bytes
+  $1c00-$1eed custom screen memory        25 * 30 = 750 bytes
+  $1eee-$1fff free bytes                  16 + 256 bytes
   $9000-$93FF HW registers: VIC, 2xVIA
   $9400-$96ee color map                   4-bit memory
   $96f0-$97ff free nibbles                4-bit memory
