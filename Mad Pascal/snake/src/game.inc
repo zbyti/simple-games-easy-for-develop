@@ -101,8 +101,8 @@ var
 begin
   t0w := SCREEN_ADR + ROW_SIZE; t1w := COLORMAP_ADR + ROW_SIZE;
   for i := (COL_SIZE - 4) downto 0 do begin
-    poke(t0w, C_WALL_V);
-    poke(t0w + (ROW_SIZE - 1), C_WALL_V);
+    poke(t0w, C_WALL_VW);
+    poke(t0w + (ROW_SIZE - 1), C_WALL_VE);
     poke(t1w, GAME_YELLOW);
     poke(t1w + (ROW_SIZE - 1), GAME_YELLOW);
     inc(t0w, ROW_SIZE);
@@ -411,7 +411,7 @@ end;
 procedure prepare;
 begin
   Move(@vbi, pointer(GAME_VBI_ADR), word(@prepare - @vbi));
-  Move(pointer(CRT_CHARS_ADR), pointer(CHARSET_ADR), $200);
+  Move(pointer(CRT_CHARS_ADR), pointer(CHARSET_ADR), CHARSET_SIZE);
   Move(pointer(CRT_TITLE_ADR), pointer(SCREEN_ADR), SCREEN_SIZE);
 end;
 

@@ -412,14 +412,14 @@ C	= :EDX
 
 .local	SET_XY						; PROCEDURE | REGISTER
 
-; optimize OK (SYS_VIC20), line = 433
+; optimize OK (SYS_VIC20), line = 436
 
 	lda X
 	sta T0B
 	lda Y
 	sta T1B
 
-; optimize OK (SYS_VIC20), line = 434
+; optimize OK (SYS_VIC20), line = 437
 
 	lda #$19
 	sta :ecx
@@ -440,14 +440,14 @@ C	= :EDX
 	scc
 	inc TMP+1
 
-; optimize OK (SYS_VIC20), line = 436
+; optimize OK (SYS_VIC20), line = 439
 
 	sta SCR
 	lda TMP+1
 	add #$1C
 	sta SCR+1
 
-; optimize OK (SYS_VIC20), line = 437
+; optimize OK (SYS_VIC20), line = 440
 
 	lda TMP
 	sta COLMAP
@@ -651,17 +651,17 @@ SCR_COUNTER	= :EAX
 
 .local	PRND_0113					; PROCEDURE | OVERLOAD | REGISTER
 
-; optimize FAIL ('PRND_0112', SYS_VIC20), line = 554
+; optimize FAIL ('PRND_0112', SYS_VIC20), line = 557
 
 	jsr PRND_0112
 
-; optimize OK (SYS_VIC20), line = 556
+; optimize OK (SYS_VIC20), line = 559
 
 	lda RND
 	and MASK
 	sta T0B
 
-; optimize OK (SYS_VIC20), line = 558
+; optimize OK (SYS_VIC20), line = 561
 
 	cmp A
 	jcs l_0137
@@ -669,7 +669,7 @@ SCR_COUNTER	= :EAX
 	sta T0B
 l_0137
 
-; optimize OK (SYS_VIC20), line = 559
+; optimize OK (SYS_VIC20), line = 562
 
 	lda B
 	cmp T0B
@@ -678,18 +678,18 @@ l_0137
 ; --- RepeatUntilProlog
 l_0153
 
-; optimize OK (SYS_VIC20), line = 560
+; optimize OK (SYS_VIC20), line = 563
 
 	lsr T0B
 
-; optimize OK (SYS_VIC20), line = 561
+; optimize OK (SYS_VIC20), line = 564
 
 	lda B
 	cmp T0B
 	jcc l_0153
 l_0151
 
-; optimize OK (SYS_VIC20), line = 563
+; optimize OK (SYS_VIC20), line = 566
 
 	lda T0B
 	sta RND
@@ -715,14 +715,14 @@ MASK	= :EAX
 ; ------------------------------------------------------------
 @UnitInit
 
-; optimize OK (SYS_VIC20), line = 570
+; optimize OK (SYS_VIC20), line = 573
 
 	lda #$00
 	sta SCR
 	lda #$1C
 	sta SCR+1
 
-; optimize OK (SYS_VIC20), line = 571
+; optimize OK (SYS_VIC20), line = 574
 
 	lda #$00
 	sta COLMAP
@@ -757,7 +757,10 @@ COL_SIZE	= $1E
 ROW_MASK	= $1F
 COL_MASK	= $1F
 SCREEN_SIZE	= $02EE
-GAME_VBI_ADR	= $1200
+CHARSET_SIZE	= $0400
+CART_ADR	= $A000
+CART_SIZE	= $2000
+GAME_VBI_ADR	= $1400
 JOY_UP	= $04
 JOY_DOWN	= $08
 JOY_LEFT	= $10
@@ -943,13 +946,14 @@ l_01D5
 	ldy T0W+1
 	sty :bp+1
 	ldy T0W
-	lda #$1F
+	lda #$43
 	sta (:bp),y
 
 ; optimize OK (game.inc), line = 105
 
 	mwy T0W :bp2
 	ldy #$18
+	lda #$42
 	sta (:bp2),y
 
 ; optimize OK (game.inc), line = 106
@@ -998,7 +1002,7 @@ l_020B
 ; optimize OK (game.inc), line = 113
 
 	ldy I
-	lda #$1E
+	lda #$41
 	sta $1C00,y
 
 ; optimize OK (game.inc), line = 114
@@ -1080,7 +1084,7 @@ l_0254
 
 ; optimize OK (game.inc), line = 134
 
-	lda #$22
+	lda #$44
 	sta HEAD_DIR
 
 ; optimize OK (game.inc), line = 135
@@ -1106,7 +1110,7 @@ l_0254
 	ldy HEAD_POS+1
 	sty :bp+1
 	ldy HEAD_POS
-	lda #$27
+	lda #$48
 	sta (:bp),y
 	ldy HEAD_POS_COL+1
 	sty :bp+1
@@ -1151,7 +1155,7 @@ l_0294
 	ldy T0W+1
 	sty :bp+1
 	ldy T0W
-	lda #$2A
+	lda #$4C
 	sta (:bp),y
 	ldy T1W+1
 	sty :bp+1
@@ -1185,7 +1189,7 @@ l_02A2
 
 	sta :bp+1
 	ldy TAIL_POS
-	lda #$22
+	lda #$44
 	sta (:bp),y
 	ldy T1W+1
 	sty :bp+1
@@ -1367,7 +1371,7 @@ l_0300
 
 	lda TAIL_DIR
 	sta @CASETMP_0003
-	cmp #$22
+	cmp #$44
 	jne l_031C
 @
 
@@ -1381,7 +1385,7 @@ l_0300
 
 	jmp a_0003
 l_031C
-	cmp #$24
+	cmp #$45
 	jne l_0326
 @
 
@@ -1395,7 +1399,7 @@ l_031C
 
 	jmp a_0003
 l_0326
-	cmp #$25
+	cmp #$46
 	jne l_0330
 @
 
@@ -1407,7 +1411,7 @@ l_0326
 
 	jmp a_0003
 l_0330
-	cmp #$23
+	cmp #$47
 	jne l_033D
 @
 
@@ -1434,7 +1438,7 @@ a_0003
 
 	lda TAIL_DIR
 	sta @CASETMP_0004
-	cmp #$22
+	cmp #$44
 	jne l_035A
 @
 
@@ -1442,35 +1446,35 @@ a_0003
 
 	lda T0B
 	sta @CASETMP_0005
-	cmp #$2A
+	cmp #$4C
 	jne l_0365
 @
 
 ; optimize OK (game.inc), line = 200
 
-	lda #$22
+	lda #$44
 	sta TAIL_DIR
 
 	jmp a_0005
 l_0365
-	cmp #$3D
+	cmp #$50
 	jne l_0372
 @
 
 ; optimize OK (game.inc), line = 201
 
-	lda #$23
+	lda #$47
 	sta TAIL_DIR
 
 	jmp a_0005
 l_0372
-	cmp #$3E
+	cmp #$51
 	jne l_037F
 @
 
 ; optimize OK (game.inc), line = 202
 
-	lda #$25
+	lda #$46
 	sta TAIL_DIR
 
 l_037F
@@ -1478,7 +1482,7 @@ a_0005
 
 	jmp a_0004
 l_035A
-	cmp #$24
+	cmp #$45
 	jne l_0393
 @
 
@@ -1486,35 +1490,35 @@ l_035A
 
 	lda T0B
 	sta @CASETMP_0006
-	cmp #$2A
+	cmp #$4C
 	jne l_039E
 @
 
 ; optimize OK (game.inc), line = 207
 
-	lda #$24
+	lda #$45
 	sta TAIL_DIR
 
 	jmp a_0006
 l_039E
-	cmp #$3B
+	cmp #$4E
 	jne l_03AB
 @
 
 ; optimize OK (game.inc), line = 208
 
-	lda #$23
+	lda #$47
 	sta TAIL_DIR
 
 	jmp a_0006
 l_03AB
-	cmp #$3C
+	cmp #$4F
 	jne l_03B8
 @
 
 ; optimize OK (game.inc), line = 209
 
-	lda #$25
+	lda #$46
 	sta TAIL_DIR
 
 l_03B8
@@ -1522,7 +1526,7 @@ a_0006
 
 	jmp a_0004
 l_0393
-	cmp #$25
+	cmp #$46
 	jne l_03CC
 @
 
@@ -1530,35 +1534,35 @@ l_0393
 
 	lda T0B
 	sta @CASETMP_0007
-	cmp #$2B
+	cmp #$4D
 	jne l_03D7
 @
 
 ; optimize OK (game.inc), line = 214
 
-	lda #$25
+	lda #$46
 	sta TAIL_DIR
 
 	jmp a_0007
 l_03D7
-	cmp #$3B
+	cmp #$4E
 	jne l_03E4
 @
 
 ; optimize OK (game.inc), line = 215
 
-	lda #$22
+	lda #$44
 	sta TAIL_DIR
 
 	jmp a_0007
 l_03E4
-	cmp #$3D
+	cmp #$50
 	jne l_03F1
 @
 
 ; optimize OK (game.inc), line = 216
 
-	lda #$24
+	lda #$45
 	sta TAIL_DIR
 
 l_03F1
@@ -1566,7 +1570,7 @@ a_0007
 
 	jmp a_0004
 l_03CC
-	cmp #$23
+	cmp #$47
 	jne l_0405
 @
 
@@ -1574,35 +1578,35 @@ l_03CC
 
 	lda T0B
 	sta @CASETMP_0008
-	cmp #$2B
+	cmp #$4D
 	jne l_0410
 @
 
 ; optimize OK (game.inc), line = 221
 
-	lda #$23
+	lda #$47
 	sta TAIL_DIR
 
 	jmp a_0008
 l_0410
-	cmp #$3C
+	cmp #$4F
 	jne l_041D
 @
 
 ; optimize OK (game.inc), line = 222
 
-	lda #$22
+	lda #$44
 	sta TAIL_DIR
 
 	jmp a_0008
 l_041D
-	cmp #$3E
+	cmp #$51
 	jne l_042A
 @
 
 ; optimize OK (game.inc), line = 223
 
-	lda #$24
+	lda #$45
 	sta TAIL_DIR
 
 l_042A
@@ -1674,14 +1678,20 @@ a_0004
 @
 	jeq l_0474x
 	lda T1W+1
-	ora T1W
+	bne @+
+	lda T1W
+	cmp #$40
+@
 	jne l_0474
 l_0474x
 
 ; optimize OK (game.inc), line = 240
 
 	lda T1W+1
-	ora T1W
+	bne @+
+	lda T1W
+	cmp #$40
+@
 	jne l_0486
 
 ; optimize OK (game.inc), line = 241
@@ -1810,60 +1820,60 @@ l_04E7
 
 	lda HEAD_DIR
 	sta @CASETMP_0009
-	cmp #$22
+	cmp #$44
 	jne l_04FA
 @
 
 ; optimize OK (game.inc), line = 270
 
-	lda #$27
+	lda #$48
 	sta SNAKE.HEAD
-	lda #$2A
+	lda #$4C
 	sta SNAKE.BODY
 	lda #$E7
 	sta SNAKE.M
 
 	jmp a_0009
 l_04FA
-	cmp #$24
+	cmp #$45
 	jne l_050F
 @
 
 ; optimize OK (game.inc), line = 271
 
-	lda #$28
+	lda #$49
 	sta SNAKE.HEAD
-	lda #$2A
+	lda #$4C
 	sta SNAKE.BODY
 	lda #$19
 	sta SNAKE.M
 
 	jmp a_0009
 l_050F
-	cmp #$25
+	cmp #$46
 	jne l_0524
 @
 
 ; optimize OK (game.inc), line = 272
 
-	lda #$26
+	lda #$4B
 	sta SNAKE.HEAD
-	lda #$2B
+	lda #$4D
 	sta SNAKE.BODY
 	lda #$01
 	sta SNAKE.M
 
 	jmp a_0009
 l_0524
-	cmp #$23
+	cmp #$47
 	jne l_0539
 @
 
 ; optimize OK (game.inc), line = 273
 
-	lda #$29
+	lda #$4A
 	sta SNAKE.HEAD
-	lda #$2B
+	lda #$4D
 	sta SNAKE.BODY
 	lda #$FF
 	sta SNAKE.M
@@ -1907,12 +1917,12 @@ a_0009
 	and #$04
 	jeq l_0578
 	lda HEAD_DIR
-	cmp #$24
+	cmp #$45
 	jeq l_0578
 
 ; optimize OK (game.inc), line = 286
 
-	lda #$27
+	lda #$48
 	sta SNAKE.HEAD
 	lda #$E7
 	sta SNAKE.M
@@ -1921,24 +1931,24 @@ a_0009
 
 	lda HEAD_DIR
 	sta @CASETMP_000A
-	cmp #$23
+	cmp #$47
 	jne l_058C
 @
 
 ; optimize OK (game.inc), line = 288
 
-	lda #$3C
+	lda #$4F
 	sta SNAKE.BODY
 
 	jmp a_000A
 l_058C
-	cmp #$25
+	cmp #$46
 	jne l_0599
 @
 
 ; optimize OK (game.inc), line = 289
 
-	lda #$3B
+	lda #$4E
 	sta SNAKE.BODY
 
 l_0599
@@ -1946,7 +1956,7 @@ a_000A
 
 ; optimize OK (game.inc), line = 291
 
-	lda #$22
+	lda #$44
 	sta HEAD_DIR
 	jmp l_05B0
 l_0578
@@ -1957,12 +1967,12 @@ l_0578
 	and #$08
 	jeq l_05D2
 	lda HEAD_DIR
-	cmp #$22
+	cmp #$44
 	jeq l_05D2
 
 ; optimize OK (game.inc), line = 294
 
-	lda #$28
+	lda #$49
 	sta SNAKE.HEAD
 	lda #$19
 	sta SNAKE.M
@@ -1971,24 +1981,24 @@ l_0578
 
 	lda HEAD_DIR
 	sta @CASETMP_000B
-	cmp #$23
+	cmp #$47
 	jne l_05E6
 @
 
 ; optimize OK (game.inc), line = 296
 
-	lda #$3E
+	lda #$51
 	sta SNAKE.BODY
 
 	jmp a_000B
 l_05E6
-	cmp #$25
+	cmp #$46
 	jne l_05F3
 @
 
 ; optimize OK (game.inc), line = 297
 
-	lda #$3D
+	lda #$50
 	sta SNAKE.BODY
 
 l_05F3
@@ -1996,7 +2006,7 @@ a_000B
 
 ; optimize OK (game.inc), line = 299
 
-	lda #$24
+	lda #$45
 	sta HEAD_DIR
 	jmp l_060A
 l_05D2
@@ -2006,12 +2016,12 @@ l_05D2
 	lda SYS_VIC20.JOY
 	jpl l_062C
 	lda HEAD_DIR
-	cmp #$23
+	cmp #$47
 	jeq l_062C
 
 ; optimize OK (game.inc), line = 302
 
-	lda #$26
+	lda #$4B
 	sta SNAKE.HEAD
 	lda #$01
 	sta SNAKE.M
@@ -2020,24 +2030,24 @@ l_05D2
 
 	lda HEAD_DIR
 	sta @CASETMP_000C
-	cmp #$22
+	cmp #$44
 	jne l_0640
 @
 
 ; optimize OK (game.inc), line = 304
 
-	lda #$3E
+	lda #$51
 	sta SNAKE.BODY
 
 	jmp a_000C
 l_0640
-	cmp #$24
+	cmp #$45
 	jne l_064D
 @
 
 ; optimize OK (game.inc), line = 305
 
-	lda #$3C
+	lda #$4F
 	sta SNAKE.BODY
 
 l_064D
@@ -2045,7 +2055,7 @@ a_000C
 
 ; optimize OK (game.inc), line = 307
 
-	lda #$25
+	lda #$46
 	sta HEAD_DIR
 	jmp l_0664
 l_062C
@@ -2056,12 +2066,12 @@ l_062C
 	and #$10
 	jeq l_0686
 	lda HEAD_DIR
-	cmp #$25
+	cmp #$46
 	jeq l_0686
 
 ; optimize OK (game.inc), line = 310
 
-	lda #$29
+	lda #$4A
 	sta SNAKE.HEAD
 	lda #$FF
 	sta SNAKE.M
@@ -2070,24 +2080,24 @@ l_062C
 
 	lda HEAD_DIR
 	sta @CASETMP_000D
-	cmp #$22
+	cmp #$44
 	jne l_069A
 @
 
 ; optimize OK (game.inc), line = 312
 
-	lda #$3D
+	lda #$50
 	sta SNAKE.BODY
 
 	jmp a_000D
 l_069A
-	cmp #$24
+	cmp #$45
 	jne l_06A7
 @
 
 ; optimize OK (game.inc), line = 313
 
-	lda #$3B
+	lda #$4E
 	sta SNAKE.BODY
 
 l_06A7
@@ -2095,7 +2105,7 @@ a_000D
 
 ; optimize OK (game.inc), line = 315
 
-	lda #$23
+	lda #$47
 	sta HEAD_DIR
 l_0686
 l_0664
@@ -2216,7 +2226,7 @@ l_06EC
 	jsr SYS_VIC20.SET_XY
 	lda #$05
 	sta SYS_VIC20.PUT_CHAR.COL
-	lda #$00
+	lda #$40
 	sta SYS_VIC20.PUT_CHAR.C
 	jsr SYS_VIC20.PUT_CHAR
 
@@ -2486,7 +2496,7 @@ l_07FF
 	sta SYSTEM.MOVE_00B1.SOURCE+1
 	lda #$00
 	sta SYSTEM.MOVE_00B1.DEST
-	lda #$12
+	lda #$14
 	sta SYSTEM.MOVE_00B1.DEST+1
 	.local +MAIN.SYSTEM.MOVE_00B1
 	m@INLINE
@@ -2496,7 +2506,7 @@ l_07FF
 
 	lda #$00
 	sta SYSTEM.MOVE_00B1.SOURCE
-	lda #$BE
+	lda #$BC
 	sta SYSTEM.MOVE_00B1.SOURCE+1
 	lda #$00
 	sta SYSTEM.MOVE_00B1.DEST
@@ -2504,7 +2514,7 @@ l_07FF
 	sta SYSTEM.MOVE_00B1.DEST+1
 	lda #$00
 	sta SYSTEM.MOVE_00B1.COUNT
-	lda #$02
+	lda #$04
 	sta SYSTEM.MOVE_00B1.COUNT+1
 	.local +MAIN.SYSTEM.MOVE_00B1
 	m@INLINE
@@ -2514,7 +2524,7 @@ l_07FF
 
 	lda #$12
 	sta SYSTEM.MOVE_00B1.SOURCE
-	lda #$BB
+	lda #$B9
 	sta SYSTEM.MOVE_00B1.SOURCE+1
 	lda #$00
 	sta SYSTEM.MOVE_00B1.DEST
@@ -2579,8 +2589,8 @@ l_085B
 
 ; ------------------------------------------------------------
 
-CRT_CHARS_ADR	= $BE00
-CRT_TITLE_ADR	= $BB12
+CRT_CHARS_ADR	= $BC00
+CRT_TITLE_ADR	= $B912
 GAME_BLACK	= $00
 GAME_WHITE	= $01
 GAME_RED	= $02
@@ -2590,24 +2600,25 @@ GAME_GREEN	= $05
 GAME_BLUE	= $06
 GAME_YELLOW	= $07
 GAME_ORANGE	= $08
-C_FRUIT	= $00
 C_SPACE	= $20
-C_WALL_H	= $1E
-C_WALL_V	= $1F
-C_HEAD_UP	= $27
-C_HEAD_RIGHT	= $26
-C_HEAD_DOWN	= $28
-C_HEAD_LEFT	= $29
-C_TAIL_UP	= $22
-C_TAIL_LEFT	= $23
-C_TAIL_DOWN	= $24
-C_TAIL_RIGHT	= $25
-C_BODY_V	= $2A
-C_BODY_H	= $2B
-C_BODY_SW	= $3B
-C_BODY_SE	= $3C
-C_BODY_NW	= $3D
-C_BODY_NE	= $3E
+C_FRUIT	= $40
+C_WALL_H	= $41
+C_WALL_VE	= $42
+C_WALL_VW	= $43
+C_TAIL_UP	= $44
+C_TAIL_DOWN	= $45
+C_TAIL_RIGHT	= $46
+C_TAIL_LEFT	= $47
+C_HEAD_UP	= $48
+C_HEAD_DOWN	= $49
+C_HEAD_LEFT	= $4A
+C_HEAD_RIGHT	= $4B
+C_BODY_V	= $4C
+C_BODY_H	= $4D
+C_BODY_SW	= $4E
+C_BODY_SE	= $4F
+C_BODY_NW	= $50
+C_BODY_NE	= $51
 adr.TXT_LEVEL	= CODEORIGIN+$0000
 .var TXT_LEVEL	= adr.TXT_LEVEL .word
 adr.TXT_POINTS	= CODEORIGIN+$000A
@@ -2628,10 +2639,10 @@ LEVEL_THOLD	= $0A
 SPEED_THOLD	= $02
 TIME_E_SET	= $C8
 TIME_THOLD	= $99
-UP	= $22
-DOWN	= $24
-LEFT	= $23
-RIGHT	= $25
+UP	= $44
+DOWN	= $45
+LEFT	= $47
+RIGHT	= $46
 MOVE_UP	= $E7
 MOVE_DOWN	= $19
 MOVE_LEFT	= $FF
@@ -2740,8 +2751,8 @@ PROGRAMSTACK	= DATAORIGIN+VARDATASIZE
 .local	RESOURCE
 	icl 'raw\resource.asm'
 
-	RCDATA 'res/title.scr' CRT_TITLE_ADR 0 0 0 0 0 0 0 0
-	RCDATA 'res/snake.fnt' CRT_CHARS_ADR 0 0 0 0 0 0 0 0
+	RCDATA 'res/title_cbm.scr' CRT_TITLE_ADR 0 0 0 0 0 0 0 0
+	RCDATA 'res/snake_cbm.fnt' CRT_CHARS_ADR 0 0 0 0 0 0 0 0
 .endl
 
 	end

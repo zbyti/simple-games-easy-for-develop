@@ -110,8 +110,8 @@ unit sys_vic20;
   $0316-$0317 BRK vector
   $0318-$0319 NMI vector
   $031a-$03ff free
-  $1000-$11ff custom charset memory       snake use only 2 pages
-  $1200-$1bff free (code)
+  $1000-$13ff custom charset memory
+  $1400-$1bff free bytes
   $1c00-$1eed custom screen memory        25 * 30 = 750 bytes
   $1eee-$1fff free bytes                  16 + 256 bytes
   $9000-$93FF HW registers: VIC, 2xVIA
@@ -151,8 +151,11 @@ const
   ROW_MASK     = %00011111;
   COL_MASK     = %00011111;
   SCREEN_SIZE  = ROW_SIZE * COL_SIZE;
+  CHARSET_SIZE = $400;
+  CART_ADR     = $a000;
+  CART_SIZE    = $2000;
 
-  GAME_VBI_ADR = $1200;
+  GAME_VBI_ADR = $1400;
 
   JOY_UP       = %00000100;
   JOY_DOWN     = %00001000;
