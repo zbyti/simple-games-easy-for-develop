@@ -12,7 +12,6 @@ build-vic20:
 	cat headers/vic20_cart.bin output/vic20-core.bin > bin/snake-vic20-pal-a000.crt
 
 start-vic20:
-	#flatpak run --command=xvic net.sf.VICE -pal bin/snake-vic20-pal.prg
 	flatpak run --command=xvic net.sf.VICE -pal -cartA bin/snake-vic20-pal-a000.crt
 
 clean:
