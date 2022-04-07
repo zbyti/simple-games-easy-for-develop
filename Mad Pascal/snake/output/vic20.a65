@@ -1325,17 +1325,17 @@ l_02A2
 
 ; optimize OK (game.inc), line = 178
 
-	lda HI_SCORE+1
-	cmp SCORE+1
+	lda HI_SCORE_BCD+1
+	cmp SCORE_BCD+1
 	bne @+
-	lda HI_SCORE
-	cmp SCORE
+	lda HI_SCORE_BCD
+	cmp SCORE_BCD
 @
 	jcs l_0300
-	lda SCORE
-	sta HI_SCORE
-	lda SCORE+1
-	sta HI_SCORE+1
+	lda SCORE_BCD
+	sta HI_SCORE_BCD
+	lda SCORE_BCD+1
+	sta HI_SCORE_BCD+1
 l_0300
 
 ; optimize FAIL ('PRINT_HI_SCORE', game.inc), line = 179
@@ -2354,12 +2354,12 @@ l_07AF
 ; optimize OK (game.inc), line = 375
 
 	lda #$00
-	sta SCORE
-	sta SCORE+1
+	sta SCORE_BCD
+	sta SCORE_BCD+1
 
 ; optimize OK (game.inc), line = 376
 
-	sta TIME
+	sta TIME_BCD
 
 ; optimize OK (game.inc), line = 377
 
@@ -2451,7 +2451,7 @@ l_0811
 
 ; optimize OK (game.inc), line = 404
 
-	lda TIME
+	lda TIME_BCD
 	cmp #$99
 	jne l_0827
 	lda #$01
@@ -2559,8 +2559,8 @@ l_0067
 ; optimize OK (game.inc), line = 424
 
 	lda #$00
-	sta HI_SCORE
-	sta HI_SCORE+1
+	sta HI_SCORE_BCD
+	sta HI_SCORE_BCD+1
 	jsr SET_GAME
 
 ; --- RepeatUntilProlog
@@ -2647,11 +2647,11 @@ TAIL_DIR	= $79
 HEAD_DIR	= $7A
 LEVEL_UP	= $7B
 TIME_ENTITY	= $7C
-TIME	= $7D
+TIME_BCD	= $7D
 LEVEL_BCD	= $7E
 LEVEL	= $7F
-SCORE	= $80
-HI_SCORE	= $82
+SCORE_BCD	= $80
+HI_SCORE_BCD	= $82
 HEAD_POS	= $84
 HEAD_POS_COL	= $86
 TAIL_POS	= $88

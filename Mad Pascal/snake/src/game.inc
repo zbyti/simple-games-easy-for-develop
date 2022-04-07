@@ -49,12 +49,12 @@ var
   head_dir       : byte absolute $7a;
   level_up       : byte absolute $7b;
   time_entity    : byte absolute $7c;
-  time           : byte absolute $7d;
+  time_bcd       : byte absolute $7d;
   level_bcd      : byte absolute $7e;
   level          : byte absolute $7f;
 
-  score          : word absolute $80;
-  hi_score       : word absolute $82;
+  score_bcd      : word absolute $80;
+  hi_score_bcd   : word absolute $82;
   head_pos       : word absolute $84;
   head_pos_col   : word absolute $86;
   tail_pos       : word absolute $88;
@@ -168,14 +168,14 @@ procedure print_hi_score;
 begin
   set_xy(2, 0);
   print(GAME_WHITE, txt_hscore);
-  update_counter_4(0, @hi_score, @hi_scr_score);
+  update_counter_4(0, @hi_score_bcd, @hi_scr_score);
 end;
 
 //:-------------------------------------------------------------:
 
 procedure hall_of_fame;
 begin
-  if score > hi_score then hi_score := score;
+  if score_bcd > hi_score_bcd then hi_score_bcd := score_bcd;
   print_hi_score;
 end;
 
@@ -240,7 +240,7 @@ begin
     if t1w = C_FRUIT then begin
       fruit_on_board := false;
 
-      update_counter_4($10, @score, @scr_score);
+      update_counter_4($10, @score_bcd, @scr_score);
 
       dec(level_up);
       if level_up = 0 then begin
@@ -344,7 +344,7 @@ begin
   dec(time_entity);
   if time_entity = 0 then begin
     time_entity := TIME_E_SET;
-    update_counter_2($1, @time, @scr_time);
+    update_counter_2($1, @time_bcd, @scr_time);
   end;
 end;
 
@@ -372,8 +372,8 @@ begin
 
   time_entity    := TIME_E_SET;
   level_up       := LEVEL_THOLD;
-  score          := $0;
-  time           := $0;
+  score_bcd      := $0;
+  time_bcd       := $0;
   level_bcd      := $0;
   level          := 0;
   snake_spd_c    := 0;
@@ -401,7 +401,7 @@ begin
     update_time;
     snake_step;
     if not fruit_on_board then put_fruit;
-    if time = TIME_THOLD then game_over := true;
+    if time_bcd = TIME_THOLD then game_over := true;
   end;
 end;
 
@@ -421,7 +421,7 @@ begin
   prepare;
   game_over := false; sys_init;
   welcome_scr;
-  hi_score := $0; set_game;
+  hi_score_bcd := $0; set_game;
 
   repeat
     if game_over then restart_game;

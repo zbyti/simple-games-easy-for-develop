@@ -1232,17 +1232,17 @@ Source: vic20.a65
   1325
   1326 				; optimize OK (game.inc), line = 178
   1327
-  1328 A4D0 A5 83			lda HI_SCORE+1
-  1329 A4D2 C5 81			cmp SCORE+1
+  1328 A4D0 A5 83			lda HI_SCORE_BCD+1
+  1329 A4D2 C5 81			cmp SCORE_BCD+1
   1330 A4D4 D0 04			bne @+
-  1331 A4D6 A5 82			lda HI_SCORE
-  1332 A4D8 C5 80			cmp SCORE
+  1331 A4D6 A5 82			lda HI_SCORE_BCD
+  1332 A4D8 C5 80			cmp SCORE_BCD
   1333 				@
   1334 A4DA B0 08			jcs l_0300
-  1335 A4DC A5 80			lda SCORE
-  1336 A4DE 85 82			sta HI_SCORE
-  1337 A4E0 A5 81			lda SCORE+1
-  1338 A4E2 85 83			sta HI_SCORE+1
+  1335 A4DC A5 80			lda SCORE_BCD
+  1336 A4DE 85 82			sta HI_SCORE_BCD
+  1337 A4E0 A5 81			lda SCORE_BCD+1
+  1338 A4E2 85 83			sta HI_SCORE_BCD+1
   1339 A4E4			l_0300
   1340
   1341 				; optimize FAIL ('PRINT_HI_SCORE', game.inc), line = 179
@@ -2261,12 +2261,12 @@ Source: vic20.a65
   2354 				; optimize OK (game.inc), line = 375
   2355
   2356 A8A7 A9 00			lda #$00
-  2357 A8A9 85 80			sta SCORE
-  2358 A8AB 85 81			sta SCORE+1
+  2357 A8A9 85 80			sta SCORE_BCD
+  2358 A8AB 85 81			sta SCORE_BCD+1
   2359
   2360 				; optimize OK (game.inc), line = 376
   2361
-  2362 A8AD 85 7D			sta TIME
+  2362 A8AD 85 7D			sta TIME_BCD
   2363
   2364 				; optimize OK (game.inc), line = 377
   2365
@@ -2358,7 +2358,7 @@ Source: vic20.a65
   2451
   2452 				; optimize OK (game.inc), line = 404
   2453
-  2454 A8DF A5 7D			lda TIME
+  2454 A8DF A5 7D			lda TIME_BCD
   2455 A8E1 C9 99			cmp #$99
   2456 A8E3 D0 04			jne l_0827
   2457 A8E5 A9 01			lda #$01
@@ -2520,8 +2520,8 @@ Source: vic20.a65
   2559 				; optimize OK (game.inc), line = 424
   2560
   2561 A9A6 A9 00			lda #$00
-  2562 A9A8 85 82			sta HI_SCORE
-  2563 A9AA 85 83			sta HI_SCORE+1
+  2562 A9A8 85 82			sta HI_SCORE_BCD
+  2563 A9AA 85 83			sta HI_SCORE_BCD+1
   2564 A9AC 20 8E A8			jsr SET_GAME
   2565
   2566 				; --- RepeatUntilProlog
@@ -2608,11 +2608,11 @@ Source: vic20.a65
   2647 = 007A			HEAD_DIR	= $7A
   2648 = 007B			LEVEL_UP	= $7B
   2649 = 007C			TIME_ENTITY	= $7C
-  2650 = 007D			TIME	= $7D
+  2650 = 007D			TIME_BCD	= $7D
   2651 = 007E			LEVEL_BCD	= $7E
   2652 = 007F			LEVEL	= $7F
-  2653 = 0080			SCORE	= $80
-  2654 = 0082			HI_SCORE	= $82
+  2653 = 0080			SCORE_BCD	= $80
+  2654 = 0082			HI_SCORE_BCD	= $82
   2655 = 0084			HEAD_POS	= $84
   2656 = 0086			HEAD_POS_COL	= $86
   2657 = 0088			TAIL_POS	= $88
