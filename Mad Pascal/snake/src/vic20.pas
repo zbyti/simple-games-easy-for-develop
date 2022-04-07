@@ -5,6 +5,10 @@
 uses sys_vic20;
 
 const
+  CRT_CHARS_ADR = ($a000 + $2000) - $200;
+  CRT_TITLE_ADR = CRT_CHARS_ADR - SCREEN_SIZE;
+
+const
   GAME_BLACK  = BLACK;
   GAME_WHITE  = WHITE;
   GAME_RED    = RED;

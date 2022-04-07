@@ -152,6 +152,8 @@ const
   COL_MASK     = %00011111;
   SCREEN_SIZE  = ROW_SIZE * COL_SIZE;
 
+  GAME_VBI_ADR = $1200;
+
   JOY_UP       = %00000100;
   JOY_DOWN     = %00001000;
   JOY_LEFT     = %00010000;
@@ -164,6 +166,7 @@ const
 var
   RTCLOCK  : byte absolute $60;
   JOY      : byte absolute $61;
+  RND      : byte absolute $62;
 
 //:-------------------------------------------------------------:
 
@@ -171,17 +174,16 @@ procedure sys_init; assembler;
 procedure rsync(n: byte); assembler; register;
 procedure wait; assembler; overload;
 procedure wait(n: byte); assembler; overload; register;
-procedure set_vbi(a: pointer); assembler; register;
-procedure reset_vbi; assembler;
 procedure clrscr(v: byte); assembler; register;
 procedure clrcol(c: byte); assembler; register;
-procedure set_xy(x, y: byte);
+procedure set_xy(x, y: byte); register;
 procedure print(col: byte; s: pointer); assembler; register;
 procedure put_char(col, c: byte); assembler; register;
-procedure update_counter(v: byte; counter, scr_counter: pointer; f: boolean); assembler; register;
+procedure update_counter_2(v: byte; counter, scr_counter: pointer); assembler; register;
+procedure update_counter_4(v: byte; counter, scr_counter: pointer); assembler; register;
 
-function prnd: byte; assembler; overload;
-function prnd(a, b, mask: byte): byte; register; overload;
+procedure prnd; assembler; overload;
+procedure prnd(a, b, mask: byte); register; overload;
 
 //o-------------------------------------------------------------o
 
@@ -307,6 +309,7 @@ var
   scr      : word absolute ZP_0_W;
   colmap   : word absolute ZP_1_W;
   tmp      : word absolute ZP_2_W;
+  game_vbi : word absolute ZP_0_P;
 
   t0b      : byte absolute ZP_0_B;
   t1b      : byte absolute ZP_1_B;
@@ -315,7 +318,6 @@ var
 
 procedure sys_vbi; assembler; interrupt;
 asm
-      //inc VICCRF
       inc RTCLOCK
 
       ldx VIA1DDRA
@@ -333,28 +335,10 @@ asm
       eor #%10111100                  // inverse values
       sta JOY
 
-.def  :__game_vbi
-:3    nop
+      jsr GAME_VBI_ADR
 
       mva #%01000000 VIA2IFR
       plr
-      //dec VICCRF
-end;
-
-//:-------------------------------------------------------------:
-
-procedure set_vbi(a: pointer); assembler; register;
-asm
-  mva #$20 :__game_vbi
-  mwa a :__game_vbi+1
-end;
-
-//:-------------------------------------------------------------:
-
-procedure reset_vbi; assembler;
-asm
-  mva #$ea :__game_vbi
-  mwa #$eaea :__game_vbi+1
 end;
 
 //:-------------------------------------------------------------:
@@ -437,9 +421,11 @@ end;
 
 //:-------------------------------------------------------------:
 
-procedure set_xy(x, y: byte);
+procedure set_xy(x, y: byte); register;
 begin
-  tmp    := x + y * ROW_SIZE;
+  t0b := x; t1b := y;
+  tmp := t1b * ROW_SIZE; inc(tmp, t0b);
+
   scr    := tmp + SCREEN_ADR;
   colmap := tmp + COLORMAP_ADR;
 end;
@@ -468,7 +454,7 @@ end;
 
 //:-------------------------------------------------------------:
 
-procedure update_counter(v: byte; counter, scr_counter: pointer; f: boolean); assembler; register;
+procedure update_counter_2(v: byte; counter, scr_counter: pointer); assembler; register;
 asm
       sed
 
@@ -476,8 +462,33 @@ asm
       lda (counter),y
       add v
       sta (counter),y
-      lda f
-      beq @+
+
+      cld
+
+      ldy #0
+      lda (counter),y
+      pha
+      and #%00001111
+      ora #%00110000
+      ldy #3
+      sta (scr_counter),y
+      pla
+:4    lsr
+      ora #%00110000
+      dey
+      sta (scr_counter),y
+end;
+
+//:-------------------------------------------------------------:
+
+procedure update_counter_4(v: byte; counter, scr_counter: pointer); assembler; register;
+asm
+      sed
+
+      ldy #0
+      lda (counter),y
+      add v
+      sta (counter),y
       bcc @+
       iny
       lda (counter),y
@@ -499,9 +510,6 @@ asm
       dey
       sta (scr_counter),y
 
-      lda f
-      beq @+
-
       dey
       lda (counter),y
       and #%00001111
@@ -512,12 +520,11 @@ asm
       ora #%00110000
       dey
       sta (scr_counter),y
-@
 end;
 
 //:-------------------------------------------------------------:
 
-function prnd: byte; assembler; overload;
+procedure prnd; assembler; overload;
 asm
       lda VICCR4
       adc RTCLOCK
@@ -525,21 +532,23 @@ asm
       eor VIA2T1LL
       eor VIA1T1CL
       eor VIA1T1CH
-      sta RESULT
+      sta RND
 end;
 
 //:-------------------------------------------------------------:
 
-function prnd(a, b, mask: byte): byte; register; overload;
+procedure prnd(a, b, mask: byte); register; overload;
 begin
-  t0b := prnd and mask;
+  prnd;
+
+  t0b := RND and mask;
 
   if t0b < a then inc(t0b,a);
   if t0b > b then repeat
     t0b := t0b shr 1;
   until t0b <= b;
 
-  result := t0b;
+  RND := t0b;
 end;
 
 

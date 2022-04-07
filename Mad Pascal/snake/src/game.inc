@@ -43,35 +43,42 @@ var
 //:-------------------------------------------------------------:
 
 var
-  game_over      : boolean absolute $77;
-  fruit_on_board : boolean absolute $78;
+  snake_speed    : byte absolute $77;
+  snake_spd_c    : byte absolute $78;
+  tail_dir       : byte absolute $79;
+  head_dir       : byte absolute $7a;
+  level_up       : byte absolute $7b;
+  time_entity    : byte absolute $7c;
+  time           : byte absolute $7d;
 
-  snake_speed    : byte absolute $79;
-  snake_spd_c    : byte absolute $7a;
-  tail_dir       : byte absolute $7b;
-  head_dir       : byte absolute $7c;
-  level_up       : byte absolute $7d;
-  time_entity    : byte absolute $7e;
-  time           : byte absolute $7f;
+  score          : word absolute $7e;
+  hi_score       : word absolute $80;
+  head_pos       : word absolute $82;
+  head_pos_col   : word absolute $84;
+  tail_pos       : word absolute $86;
+  level          : word absolute $88;
 
-  score          : word absolute $80;
-  hi_score       : word absolute $82;
-  head_pos       : word absolute $84;
-  head_pos_col   : word absolute $86;
-  tail_pos       : word absolute $88;
-  level          : word absolute $8a;
+  snake          : TSnake absolute $8a;
 
-  snake          : TSnake absolute $8c;
+  fruit_on_board : boolean absolute $8d;
+
+  // system free ZP variables
+  game_over      : boolean absolute $fb;
+  sf0b           : byte absolute $fb;
+  sf1b           : byte absolute $fc;
+
 
   hi_scr_score   : byte absolute SCREEN_ADR + 5;
-  scr_score      : byte absolute (SCREEN_ADR + COL_SIZE * ROW_SIZE) - 4;
-  scr_level      : byte absolute (SCREEN_ADR + (COL_SIZE - 1) * ROW_SIZE) + 4;
-  scr_time       : byte absolute (SCREEN_ADR + (COL_SIZE - 1) * ROW_SIZE) + 9;
+  scr_score      : byte absolute SCREEN_ADR + SCREEN_SIZE - 4;
+  scr_level      : byte absolute SCREEN_ADR + SCREEN_SIZE - ROW_SIZE + 4;
+  scr_time       : byte absolute SCREEN_ADR + SCREEN_SIZE - ROW_SIZE + 9;
 
 //o-------------------------------------------------------------o
 
 procedure welcome_scr; inline;
 begin
+  clrcol(GAME_WHITE);
+
   t0b := ROW_SIZE shr 1; t2b := ROW_SIZE shr 1;
 
   t1b := length(txt_info) shr 1; dec(t0b, t1b);
@@ -103,9 +110,9 @@ begin
 
   for i := (ROW_SIZE - 1) downto 0 do begin
     poke(SCREEN_ADR + i, C_WALL_H);
-    poke((SCREEN_ADR + (COL_SIZE - 2) * ROW_SIZE) + i, C_WALL_H);
+    poke((SCREEN_ADR + SCREEN_SIZE - 2 * ROW_SIZE) + i, C_WALL_H);
     poke(COLORMAP_ADR + i, GAME_YELLOW);
-    poke((COLORMAP_ADR + (COL_SIZE - 2) * ROW_SIZE) + i, GAME_YELLOW);
+    poke((COLORMAP_ADR + SCREEN_SIZE - 2 * ROW_SIZE) + i, GAME_YELLOW);
   end;
 end;
 
@@ -125,8 +132,8 @@ procedure put_snake;
 begin
   head_dir     := UP;
   tail_dir     := UP;
-  head_pos     := SCREEN_ADR   + ROW_SIZE shr 1 + COL_SIZE shr 1 * ROW_SIZE;
-  head_pos_col := COLORMAP_ADR + ROW_SIZE shr 1 + COL_SIZE shr 1 * ROW_SIZE;
+  head_pos     := SCREEN_ADR   + ROW_SIZE shr 1 + SCREEN_SIZE shr 1;
+  head_pos_col := COLORMAP_ADR + ROW_SIZE shr 1 + SCREEN_SIZE shr 1;
 
   poke(head_pos, C_HEAD_UP); poke(head_pos_col, GAME_WHITE);
 
@@ -160,7 +167,7 @@ procedure print_hi_score;
 begin
   set_xy(2, 0);
   print(GAME_WHITE, txt_hscore);
-  update_counter(0, @hi_score, @hi_scr_score, true);
+  update_counter_4(0, @hi_score, @hi_scr_score);
 end;
 
 //:-------------------------------------------------------------:
@@ -232,11 +239,11 @@ begin
     if t1w = C_FRUIT then begin
       fruit_on_board := false;
 
-      update_counter($10, @score, @scr_score, true);
+      update_counter_4($10, @score, @scr_score);
 
       dec(level_up);
       if level_up = 0 then begin
-        update_counter($1, @level, @scr_level, false);
+        update_counter_2($1, @level, @scr_level);
         level_up := LEVEL_THOLD;
       end;
 
@@ -317,8 +324,8 @@ end;
 
 procedure put_fruit;
 begin
-  t0b := prnd(1, 24, ROW_MASK);
-  t1b := prnd(1, 27, COL_MASK);
+  prnd(1, 24, ROW_MASK); t0b := RND;
+  prnd(1, 27, COL_MASK); t1b := RND;
 
   t0w := ROW_SIZE * t1b; inc(t0w, SCREEN_ADR); inc(t0w, t0b);
 
@@ -330,18 +337,18 @@ end;
 
 //:-------------------------------------------------------------:
 
-procedure update_time; inline;
+procedure update_time;
 begin
   dec(time_entity);
   if time_entity = 0 then begin
     time_entity := TIME_E_SET;
-    update_counter($1, @time, @scr_time, false);
+    update_counter_2($1, @time, @scr_time);
   end;
 end;
 
 //:-------------------------------------------------------------:
 
-procedure snake_step; inline;
+procedure snake_step;
 begin
   snake_speed := GAME_SPEED - level;
   if snake_speed < SPEED_THOLD then snake_speed := SPEED_THOLD;
@@ -390,21 +397,26 @@ begin
   if not game_over then begin
     update_time;
     snake_step;
-
     if not fruit_on_board then put_fruit;
-
     if time = TIME_THOLD then game_over := true;
   end;
+end;
+
+{*
+  This must be right after VBI procedure!
+*}
+procedure prepare;
+begin
+  Move(@vbi, pointer(GAME_VBI_ADR), word(@prepare - @vbi));
+  Move(pointer(CRT_CHARS_ADR), pointer(CHARSET_ADR), $200);
+  Move(pointer(CRT_TITLE_ADR), pointer(SCREEN_ADR), SCREEN_SIZE);
 end;
 
 //o-------------------------------------------------------------o
 
 begin
-  clrcol(GAME_WHITE);
-
-  sys_init;
-
-  game_over := true; set_vbi(@vbi);
+  prepare;
+  game_over := false; sys_init;
   welcome_scr;
   hi_score := 0; set_game;
 
