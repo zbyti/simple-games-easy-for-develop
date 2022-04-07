@@ -50,13 +50,14 @@ var
   level_up       : byte absolute $7b;
   time_entity    : byte absolute $7c;
   time           : byte absolute $7d;
+  level_bcd      : byte absolute $7e;
+  level          : byte absolute $7f;
 
-  score          : word absolute $7e;
-  hi_score       : word absolute $80;
-  head_pos       : word absolute $82;
-  head_pos_col   : word absolute $84;
-  tail_pos       : word absolute $86;
-  level          : word absolute $88;
+  score          : word absolute $80;
+  hi_score       : word absolute $82;
+  head_pos       : word absolute $84;
+  head_pos_col   : word absolute $86;
+  tail_pos       : word absolute $88;
 
   snake          : TSnake absolute $8a;
 
@@ -243,7 +244,8 @@ begin
 
       dec(level_up);
       if level_up = 0 then begin
-        update_counter_2($1, @level, @scr_level);
+        inc(level);
+        update_counter_2($1, @level_bcd, @scr_level);
         level_up := LEVEL_THOLD;
       end;
 
@@ -370,8 +372,9 @@ begin
 
   time_entity    := TIME_E_SET;
   level_up       := LEVEL_THOLD;
-  score          := 0;
-  time           := 0;
+  score          := $0;
+  time           := $0;
+  level_bcd      := $0;
   level          := 0;
   snake_spd_c    := 0;
   fruit_on_board := false;
@@ -418,7 +421,7 @@ begin
   prepare;
   game_over := false; sys_init;
   welcome_scr;
-  hi_score := 0; set_game;
+  hi_score := $0; set_game;
 
   repeat
     if game_over then restart_game;
