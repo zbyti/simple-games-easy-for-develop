@@ -284,7 +284,7 @@ RNDSEED	= DATAORIGIN+$0000
       eor #%10111100                  // inverse values
       sta JOY
 
-      jsr GAME_VBI_ADR
+      jsr VBI
 
       mva #%01000000 VIA2IFR
       plr
@@ -412,14 +412,14 @@ C	= :EDX
 
 .local	SET_XY						; PROCEDURE | REGISTER
 
-; optimize OK (SYS_VIC20), line = 436
+; optimize OK (SYS_VIC20), line = 434
 
 	lda X
 	sta T0B
 	lda Y
 	sta T1B
 
-; optimize OK (SYS_VIC20), line = 437
+; optimize OK (SYS_VIC20), line = 435
 
 	lda #$19
 	sta :ecx
@@ -440,14 +440,14 @@ C	= :EDX
 	scc
 	inc TMP+1
 
-; optimize OK (SYS_VIC20), line = 439
+; optimize OK (SYS_VIC20), line = 437
 
 	sta SCR
 	lda TMP+1
 	add #$1C
 	sta SCR+1
 
-; optimize OK (SYS_VIC20), line = 440
+; optimize OK (SYS_VIC20), line = 438
 
 	lda TMP
 	sta COLMAP
@@ -651,17 +651,17 @@ SCR_COUNTER	= :EAX
 
 .local	PRND_0113					; PROCEDURE | OVERLOAD | REGISTER
 
-; optimize FAIL ('PRND_0112', SYS_VIC20), line = 557
+; optimize FAIL ('PRND_0112', SYS_VIC20), line = 555
 
 	jsr PRND_0112
 
-; optimize OK (SYS_VIC20), line = 559
+; optimize OK (SYS_VIC20), line = 557
 
 	lda RND
 	and MASK
 	sta T0B
 
-; optimize OK (SYS_VIC20), line = 561
+; optimize OK (SYS_VIC20), line = 559
 
 	cmp A
 	jcs l_0137
@@ -669,7 +669,7 @@ SCR_COUNTER	= :EAX
 	sta T0B
 l_0137
 
-; optimize OK (SYS_VIC20), line = 562
+; optimize OK (SYS_VIC20), line = 560
 
 	lda B
 	cmp T0B
@@ -678,18 +678,18 @@ l_0137
 ; --- RepeatUntilProlog
 l_0153
 
-; optimize OK (SYS_VIC20), line = 563
+; optimize OK (SYS_VIC20), line = 561
 
 	lsr T0B
 
-; optimize OK (SYS_VIC20), line = 564
+; optimize OK (SYS_VIC20), line = 562
 
 	lda B
 	cmp T0B
 	jcc l_0153
 l_0151
 
-; optimize OK (SYS_VIC20), line = 566
+; optimize OK (SYS_VIC20), line = 564
 
 	lda T0B
 	sta RND
@@ -715,14 +715,14 @@ MASK	= :EAX
 ; ------------------------------------------------------------
 @UnitInit
 
-; optimize OK (SYS_VIC20), line = 573
+; optimize OK (SYS_VIC20), line = 571
 
 	lda #$00
 	sta SCR
 	lda #$1C
 	sta SCR+1
 
-; optimize OK (SYS_VIC20), line = 574
+; optimize OK (SYS_VIC20), line = 572
 
 	lda #$00
 	sta COLMAP
@@ -760,7 +760,6 @@ SCREEN_SIZE	= $02EE
 CHARSET_SIZE	= $0400
 CART_ADR	= $A000
 CART_SIZE	= $2000
-GAME_VBI_ADR	= $1400
 JOY_UP	= $04
 JOY_DOWN	= $08
 JOY_LEFT	= $10
@@ -2484,26 +2483,6 @@ l_07FF
 
 ; optimize OK (game.inc), line = 413
 
-	lda <PREPARE
-	sub <VBI
-	sta SYSTEM.MOVE_00B1.COUNT
-	lda >PREPARE
-	sbc >VBI
-	sta SYSTEM.MOVE_00B1.COUNT+1
-	lda <VBI
-	sta SYSTEM.MOVE_00B1.SOURCE
-	lda >VBI
-	sta SYSTEM.MOVE_00B1.SOURCE+1
-	lda #$00
-	sta SYSTEM.MOVE_00B1.DEST
-	lda #$14
-	sta SYSTEM.MOVE_00B1.DEST+1
-	.local +MAIN.SYSTEM.MOVE_00B1
-	m@INLINE
-	.endl
-
-; optimize OK (game.inc), line = 414
-
 	lda #$00
 	sta SYSTEM.MOVE_00B1.SOURCE
 	lda #$BC
@@ -2520,7 +2499,7 @@ l_07FF
 	m@INLINE
 	.endl
 
-; optimize OK (game.inc), line = 415
+; optimize OK (game.inc), line = 414
 
 	lda #$12
 	sta SYSTEM.MOVE_00B1.SOURCE
@@ -2537,6 +2516,10 @@ l_07FF
 	.local +MAIN.SYSTEM.MOVE_00B1
 	m@INLINE
 	.endl
+
+; optimize FAIL ('VBI', game.inc), line = 420
+
+	jsr VBI
 @exit
 	.ifdef @new
 	lda <@VarData
@@ -2550,23 +2533,20 @@ l_07FF
 .endl
 l_0067
 
-; optimize FAIL ('PREPARE', game.inc), line = 421
-
-	jsr PREPARE
-
-; optimize OK (game.inc), line = 422
+; optimize OK (game.inc), line = 426
 
 	lda #$00
 	sta GAME_OVER
+
+; optimize FAIL ('PREPARE', game.inc), line = 428
+
+	jsr PREPARE
 	jsr SYS_VIC20.SYS_INIT
-
-; optimize FAIL ('m@INLINE', game.inc), line = 423
-
 	.local +MAIN.WELCOME_SCR
 	m@INLINE
 	.endl
 
-; optimize OK (game.inc), line = 424
+; optimize OK (game.inc), line = 430
 
 	lda #$00
 	sta HI_SCORE_BCD
@@ -2574,18 +2554,18 @@ l_0067
 	jsr SET_GAME
 
 ; --- RepeatUntilProlog
-l_084F
+l_084B
 
-; optimize OK (game.inc), line = 427
+; optimize OK (game.inc), line = 433
 
 	lda GAME_OVER
-	jeq l_085B
+	jeq l_0857
 	jsr RESTART_GAME
-l_085B
+l_0857
 
-; optimize OK (game.inc), line = 428
+; optimize OK (game.inc), line = 434
 
-	jmp l_084F
+	jmp l_084B
 
 ; ------------------------------------------------------------
 

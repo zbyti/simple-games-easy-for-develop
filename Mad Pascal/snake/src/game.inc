@@ -405,22 +405,27 @@ begin
   end;
 end;
 
-{*
-  This must be right after VBI procedure!
-*}
+//o-------------------------------------------------------------o
+
 procedure prepare;
 begin
-  Move(@vbi, pointer(GAME_VBI_ADR), word(@prepare - @vbi));
   Move(pointer(CRT_CHARS_ADR), pointer(CHARSET_ADR), CHARSET_SIZE);
   Move(pointer(CRT_TITLE_ADR), pointer(SCREEN_ADR), SCREEN_SIZE);
+
+  {*
+    hack for the compiler, call vbi procedure
+    in other case optimizer remove unused - from his point of view - code
+  *}
+  vbi;
 end;
 
 //o-------------------------------------------------------------o
 
 begin
-  prepare;
-  game_over := false; sys_init;
-  welcome_scr;
+  game_over := false;
+
+  prepare; sys_init; welcome_scr;
+
   hi_score_bcd := $0; set_game;
 
   repeat
