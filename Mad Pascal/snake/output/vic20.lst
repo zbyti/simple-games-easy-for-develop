@@ -949,8 +949,8 @@ Source: vic20.a65
   1042 				; optimize OK (game.inc), line = 125
   1043
   1044 A384 A9 19			lda #$19
-  1045 A386 38 ED 16 A0			sub adr.TXT_POINTS
-  1046 A38A 38 E9 01			sub #$01
+  1045 A386 38 ED 32 A0			sub adr.TXT_FIRE
+  1046 A38A 38 E9 02			sub #$02
   1047 A38D 85 08			sta SYS_VIC20.SET_XY.X
   1048 A38F A9 00			lda #$00
   1049 A391 85 0C			sta SYS_VIC20.SET_XY.Y
@@ -2542,7 +2542,7 @@ Source: vic20.a65
   2629
   2630 				; optimize OK (game.inc), line = 438
   2631
-  2632 A970 A9 00			lda #$00
+  2632 A970 A9 01			lda #$01
   2633 A972 85 FB			sta GAME_OVER
   2634
   2635 				; optimize FAIL ('PREPARE', game.inc), line = 440

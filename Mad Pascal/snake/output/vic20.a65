@@ -1042,8 +1042,8 @@ I	= $70
 ; optimize OK (game.inc), line = 125
 
 	lda #$19
-	sub adr.TXT_POINTS
-	sub #$01
+	sub adr.TXT_FIRE
+	sub #$02
 	sta SYS_VIC20.SET_XY.X
 	lda #$00
 	sta SYS_VIC20.SET_XY.Y
@@ -2629,7 +2629,7 @@ l_0067
 
 ; optimize OK (game.inc), line = 438
 
-	lda #$00
+	lda #$01
 	sta GAME_OVER
 
 ; optimize FAIL ('PREPARE', game.inc), line = 440
