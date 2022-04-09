@@ -435,7 +435,7 @@ end;
 //o-------------------------------------------------------------o
 
 begin
-  game_over := false;
+  game_over := true;
 
   prepare; sys_init; welcome_scr;
 
