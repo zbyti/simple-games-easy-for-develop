@@ -844,18 +844,18 @@ T1B	= $55
 
 	.MACRO m@INLINE
 
-; optimize OK (game.inc), line = 81
+; optimize OK (game.inc), line = 82
 
 	lda #$01
 	jsr SYS_VIC20.CLRCOL
 
-; optimize OK (game.inc), line = 83
+; optimize OK (game.inc), line = 84
 
 	lda #$0C
 	sta T0B
 	sta T2B
 
-; optimize OK (game.inc), line = 85
+; optimize OK (game.inc), line = 86
 
 	lda adr.TXT_INFO
 	lsr @
@@ -864,14 +864,14 @@ T1B	= $55
 	sub T1B
 	sta T0B
 
-; optimize OK (game.inc), line = 86
+; optimize OK (game.inc), line = 87
 
 	sta SYS_VIC20.SET_XY.X
 	lda #$02
 	sta SYS_VIC20.SET_XY.Y
 	jsr SYS_VIC20.SET_XY
 
-; optimize OK (game.inc), line = 87
+; optimize OK (game.inc), line = 88
 
 	lda #$07
 	sta SYS_VIC20.PRINT.COL
@@ -881,7 +881,7 @@ T1B	= $55
 	sta SYS_VIC20.PRINT.S+1
 	jsr SYS_VIC20.PRINT
 
-; optimize OK (game.inc), line = 89
+; optimize OK (game.inc), line = 90
 
 	lda adr.TXT_TURBO
 	lsr @
@@ -890,14 +890,14 @@ T1B	= $55
 	sub T1B
 	sta T2B
 
-; optimize OK (game.inc), line = 90
+; optimize OK (game.inc), line = 91
 
 	sta SYS_VIC20.SET_XY.X
 	lda #$19
 	sta SYS_VIC20.SET_XY.Y
 	jsr SYS_VIC20.SET_XY
 
-; optimize OK (game.inc), line = 91
+; optimize OK (game.inc), line = 92
 
 	lda #$07
 	sta SYS_VIC20.PRINT.COL
@@ -910,7 +910,7 @@ T1B	= $55
 ; --- RepeatUntilProlog
 l_01AF
 
-; optimize OK (game.inc), line = 93
+; optimize OK (game.inc), line = 94
 
 	lda SYS_VIC20.JOY
 	and #$20
@@ -921,7 +921,7 @@ l_01AF
 
 .local	DRAW_FRAME					; PROCEDURE
 
-; optimize OK (game.inc), line = 102
+; optimize OK (game.inc), line = 103
 
 	lda #$19
 	sta T0W
@@ -932,7 +932,7 @@ l_01AF
 	lda #$94
 	sta T1W+1
 
-; optimize OK (game.inc), line = 103
+; optimize OK (game.inc), line = 104
 
 	lda #$1A
 	sta I
@@ -940,7 +940,7 @@ l_01AF
 l_01D5
 ; --- ForToDoCondition
 
-; optimize OK (game.inc), line = 104
+; optimize OK (game.inc), line = 105
 
 	ldy T0W+1
 	sty :bp+1
@@ -948,14 +948,14 @@ l_01D5
 	lda #$43
 	sta (:bp),y
 
-; optimize OK (game.inc), line = 105
+; optimize OK (game.inc), line = 106
 
 	mwy T0W :bp2
 	ldy #$18
 	lda #$42
 	sta (:bp2),y
 
-; optimize OK (game.inc), line = 106
+; optimize OK (game.inc), line = 107
 
 	ldy T1W+1
 	sty :bp+1
@@ -963,13 +963,13 @@ l_01D5
 	lda #$07
 	sta (:bp),y
 
-; optimize OK (game.inc), line = 107
+; optimize OK (game.inc), line = 108
 
 	mwy T1W :bp2
 	ldy #$18
 	sta (:bp2),y
 
-; optimize OK (game.inc), line = 108
+; optimize OK (game.inc), line = 109
 
 	lda T0W
 	add #$19
@@ -977,7 +977,7 @@ l_01D5
 	scc
 	inc T0W+1
 
-; optimize OK (game.inc), line = 109
+; optimize OK (game.inc), line = 110
 
 	lda T1W
 	add #$19
@@ -990,7 +990,7 @@ l_01D5
 	jpl l_01D5
 l_01E3
 
-; optimize OK (game.inc), line = 112
+; optimize OK (game.inc), line = 113
 
 	lda #$18
 	sta I
@@ -998,22 +998,22 @@ l_01E3
 l_020B
 ; --- ForToDoCondition
 
-; optimize OK (game.inc), line = 113
+; optimize OK (game.inc), line = 114
 
 	ldy I
 	lda #$41
 	sta $1C00,y
 
-; optimize OK (game.inc), line = 114
+; optimize OK (game.inc), line = 115
 
 	sta $1EBC,y
 
-; optimize OK (game.inc), line = 115
+; optimize OK (game.inc), line = 116
 
 	lda #$07
 	sta $9400,y
 
-; optimize OK (game.inc), line = 116
+; optimize OK (game.inc), line = 117
 
 	sta $96BC,y
 
@@ -1039,7 +1039,7 @@ I	= $70
 
 .local	PRESS_FIRE					; PROCEDURE
 
-; optimize OK (game.inc), line = 124
+; optimize OK (game.inc), line = 125
 
 	lda #$19
 	sub adr.TXT_POINTS
@@ -1049,7 +1049,7 @@ I	= $70
 	sta SYS_VIC20.SET_XY.Y
 	jsr SYS_VIC20.SET_XY
 
-; optimize OK (game.inc), line = 125
+; optimize OK (game.inc), line = 126
 
 	lda #$01
 	sta SYS_VIC20.PRINT.COL
@@ -1062,7 +1062,7 @@ I	= $70
 ; --- RepeatUntilProlog
 l_0254
 
-; optimize OK (game.inc), line = 127
+; optimize OK (game.inc), line = 128
 
 	lda SYS_VIC20.JOY
 	and #$20
@@ -1081,30 +1081,30 @@ l_0254
 
 .local	PUT_SNAKE					; PROCEDURE
 
-; optimize OK (game.inc), line = 134
+; optimize OK (game.inc), line = 135
 
 	lda #$44
 	sta HEAD_DIR
 
-; optimize OK (game.inc), line = 135
+; optimize OK (game.inc), line = 136
 
 	sta TAIL_DIR
 
-; optimize OK (game.inc), line = 136
+; optimize OK (game.inc), line = 137
 
 	lda #$83
 	sta HEAD_POS
 	lda #$1D
 	sta HEAD_POS+1
 
-; optimize OK (game.inc), line = 137
+; optimize OK (game.inc), line = 138
 
 	lda #$83
 	sta HEAD_POS_COL
 	lda #$95
 	sta HEAD_POS_COL+1
 
-; optimize OK (game.inc), line = 139
+; optimize OK (game.inc), line = 140
 
 	ldy HEAD_POS+1
 	sty :bp+1
@@ -1117,7 +1117,7 @@ l_0254
 	lda #$01
 	sta (:bp),y
 
-; optimize OK (game.inc), line = 141
+; optimize OK (game.inc), line = 142
 
 	lda HEAD_POS
 	sta T0W
@@ -1128,7 +1128,7 @@ l_0254
 	lda HEAD_POS_COL+1
 	sta T1W+1
 
-; optimize OK (game.inc), line = 142
+; optimize OK (game.inc), line = 143
 
 	lda #$00
 	sta T0B
@@ -1136,7 +1136,7 @@ l_0254
 l_0294
 ; --- ForToDoCondition
 
-; optimize OK (game.inc), line = 143
+; optimize OK (game.inc), line = 144
 
 	lda T0W
 	add #$19
@@ -1149,7 +1149,7 @@ l_0294
 	scc
 	inc T1W+1
 
-; optimize OK (game.inc), line = 144
+; optimize OK (game.inc), line = 145
 
 	ldy T0W+1
 	sty :bp+1
@@ -1167,7 +1167,7 @@ l_0294
 	jpl l_0294
 l_02A2
 
-; optimize OK (game.inc), line = 147
+; optimize OK (game.inc), line = 148
 
 	lda T0W
 	add #$19
@@ -1184,7 +1184,7 @@ l_02A2
 	lda T0W+1
 	sta TAIL_POS+1
 
-; optimize OK (game.inc), line = 148
+; optimize OK (game.inc), line = 149
 
 	sta :bp+1
 	ldy TAIL_POS
@@ -1212,7 +1212,7 @@ l_02A2
 
 .local	DRAW_BOTTOM_LINE				; PROCEDURE
 
-; optimize OK (game.inc), line = 155
+; optimize OK (game.inc), line = 156
 
 	lda #$00
 	sta SYS_VIC20.SET_XY.X
@@ -1220,7 +1220,7 @@ l_02A2
 	sta SYS_VIC20.SET_XY.Y
 	jsr SYS_VIC20.SET_XY
 
-; optimize OK (game.inc), line = 156
+; optimize OK (game.inc), line = 157
 
 	lda #$01
 	sta SYS_VIC20.PRINT.COL
@@ -1230,7 +1230,7 @@ l_02A2
 	sta SYS_VIC20.PRINT.S+1
 	jsr SYS_VIC20.PRINT
 
-; optimize OK (game.inc), line = 158
+; optimize OK (game.inc), line = 159
 
 	lda adr.TXT_LEVEL
 	add #$01
@@ -1239,7 +1239,7 @@ l_02A2
 	sta SYS_VIC20.SET_XY.Y
 	jsr SYS_VIC20.SET_XY
 
-; optimize OK (game.inc), line = 159
+; optimize OK (game.inc), line = 160
 
 	lda #$01
 	sta SYS_VIC20.PRINT.COL
@@ -1249,7 +1249,7 @@ l_02A2
 	sta SYS_VIC20.PRINT.S+1
 	jsr SYS_VIC20.PRINT
 
-; optimize OK (game.inc), line = 161
+; optimize OK (game.inc), line = 162
 
 	lda #$19
 	sub adr.TXT_POINTS
@@ -1258,7 +1258,7 @@ l_02A2
 	sta SYS_VIC20.SET_XY.Y
 	jsr SYS_VIC20.SET_XY
 
-; optimize OK (game.inc), line = 162
+; optimize OK (game.inc), line = 163
 
 	lda #$01
 	sta SYS_VIC20.PRINT.COL
@@ -1281,7 +1281,7 @@ l_02A2
 
 .local	PRINT_HI_SCORE					; PROCEDURE
 
-; optimize OK (game.inc), line = 169
+; optimize OK (game.inc), line = 170
 
 	lda #$02
 	sta SYS_VIC20.SET_XY.X
@@ -1289,7 +1289,7 @@ l_02A2
 	sta SYS_VIC20.SET_XY.Y
 	jsr SYS_VIC20.SET_XY
 
-; optimize OK (game.inc), line = 170
+; optimize OK (game.inc), line = 171
 
 	lda #$01
 	sta SYS_VIC20.PRINT.COL
@@ -1299,7 +1299,7 @@ l_02A2
 	sta SYS_VIC20.PRINT.S+1
 	jsr SYS_VIC20.PRINT
 
-; optimize OK (game.inc), line = 171
+; optimize OK (game.inc), line = 172
 
 	lda #$00
 	sta SYS_VIC20.UPDATE_COUNTER_4.V
@@ -1326,7 +1326,7 @@ l_02A2
 
 .local	HALL_OF_FAME					; PROCEDURE
 
-; optimize OK (game.inc), line = 178
+; optimize OK (game.inc), line = 179
 
 	lda HI_SCORE_BCD+1
 	cmp SCORE_BCD+1
@@ -1341,7 +1341,7 @@ l_02A2
 	sta HI_SCORE_BCD+1
 l_0300
 
-; optimize FAIL ('PRINT_HI_SCORE', game.inc), line = 179
+; optimize FAIL ('PRINT_HI_SCORE', game.inc), line = 180
 
 	jsr PRINT_HI_SCORE
 @exit
@@ -1358,7 +1358,7 @@ l_0300
 
 .local	MOVE_TAIL					; PROCEDURE
 
-; optimize OK (game.inc), line = 186
+; optimize OK (game.inc), line = 187
 
 	ldy TAIL_POS+1
 	sty :bp+1
@@ -1366,7 +1366,7 @@ l_0300
 	lda #$20
 	sta (:bp),y
 
-; optimize OK (game.inc), line = 188
+; optimize OK (game.inc), line = 189
 
 	lda TAIL_DIR
 	sta @CASETMP_0003
@@ -1374,7 +1374,7 @@ l_0300
 	jne l_031C
 @
 
-; optimize OK (game.inc), line = 189
+; optimize OK (game.inc), line = 190
 
 	lda TAIL_POS
 	sub #$19
@@ -1388,7 +1388,7 @@ l_031C
 	jne l_0326
 @
 
-; optimize OK (game.inc), line = 190
+; optimize OK (game.inc), line = 191
 
 	lda TAIL_POS
 	add #$19
@@ -1402,7 +1402,7 @@ l_0326
 	jne l_0330
 @
 
-; optimize FAIL (0, game.inc), line = 191
+; optimize FAIL (0, game.inc), line = 192
 
 	inc TAIL_POS
 	sne
@@ -1414,7 +1414,7 @@ l_0330
 	jne l_033D
 @
 
-; optimize FAIL (0, game.inc), line = 192
+; optimize FAIL (0, game.inc), line = 193
 
 	lda TAIL_POS
 	bne @+
@@ -1425,7 +1425,7 @@ l_0330
 l_033D
 a_0003
 
-; optimize OK (game.inc), line = 195
+; optimize OK (game.inc), line = 196
 
 	ldy TAIL_POS+1
 	sty :bp+1
@@ -1433,7 +1433,7 @@ a_0003
 	lda (:bp),y
 	sta T0B
 
-; optimize OK (game.inc), line = 197
+; optimize OK (game.inc), line = 198
 
 	lda TAIL_DIR
 	sta @CASETMP_0004
@@ -1441,7 +1441,7 @@ a_0003
 	jne l_035A
 @
 
-; optimize OK (game.inc), line = 199
+; optimize OK (game.inc), line = 200
 
 	lda T0B
 	sta @CASETMP_0005
@@ -1449,7 +1449,7 @@ a_0003
 	jne l_0365
 @
 
-; optimize OK (game.inc), line = 200
+; optimize OK (game.inc), line = 201
 
 	lda #$44
 	sta TAIL_DIR
@@ -1460,7 +1460,7 @@ l_0365
 	jne l_0372
 @
 
-; optimize OK (game.inc), line = 201
+; optimize OK (game.inc), line = 202
 
 	lda #$47
 	sta TAIL_DIR
@@ -1471,7 +1471,7 @@ l_0372
 	jne l_037F
 @
 
-; optimize OK (game.inc), line = 202
+; optimize OK (game.inc), line = 203
 
 	lda #$46
 	sta TAIL_DIR
@@ -1485,7 +1485,7 @@ l_035A
 	jne l_0393
 @
 
-; optimize OK (game.inc), line = 206
+; optimize OK (game.inc), line = 207
 
 	lda T0B
 	sta @CASETMP_0006
@@ -1493,7 +1493,7 @@ l_035A
 	jne l_039E
 @
 
-; optimize OK (game.inc), line = 207
+; optimize OK (game.inc), line = 208
 
 	lda #$45
 	sta TAIL_DIR
@@ -1504,7 +1504,7 @@ l_039E
 	jne l_03AB
 @
 
-; optimize OK (game.inc), line = 208
+; optimize OK (game.inc), line = 209
 
 	lda #$47
 	sta TAIL_DIR
@@ -1515,7 +1515,7 @@ l_03AB
 	jne l_03B8
 @
 
-; optimize OK (game.inc), line = 209
+; optimize OK (game.inc), line = 210
 
 	lda #$46
 	sta TAIL_DIR
@@ -1529,7 +1529,7 @@ l_0393
 	jne l_03CC
 @
 
-; optimize OK (game.inc), line = 213
+; optimize OK (game.inc), line = 214
 
 	lda T0B
 	sta @CASETMP_0007
@@ -1537,7 +1537,7 @@ l_0393
 	jne l_03D7
 @
 
-; optimize OK (game.inc), line = 214
+; optimize OK (game.inc), line = 215
 
 	lda #$46
 	sta TAIL_DIR
@@ -1548,7 +1548,7 @@ l_03D7
 	jne l_03E4
 @
 
-; optimize OK (game.inc), line = 215
+; optimize OK (game.inc), line = 216
 
 	lda #$44
 	sta TAIL_DIR
@@ -1559,7 +1559,7 @@ l_03E4
 	jne l_03F1
 @
 
-; optimize OK (game.inc), line = 216
+; optimize OK (game.inc), line = 217
 
 	lda #$45
 	sta TAIL_DIR
@@ -1573,7 +1573,7 @@ l_03CC
 	jne l_0405
 @
 
-; optimize OK (game.inc), line = 220
+; optimize OK (game.inc), line = 221
 
 	lda T0B
 	sta @CASETMP_0008
@@ -1581,7 +1581,7 @@ l_03CC
 	jne l_0410
 @
 
-; optimize OK (game.inc), line = 221
+; optimize OK (game.inc), line = 222
 
 	lda #$47
 	sta TAIL_DIR
@@ -1592,7 +1592,7 @@ l_0410
 	jne l_041D
 @
 
-; optimize OK (game.inc), line = 222
+; optimize OK (game.inc), line = 223
 
 	lda #$44
 	sta TAIL_DIR
@@ -1603,7 +1603,7 @@ l_041D
 	jne l_042A
 @
 
-; optimize OK (game.inc), line = 223
+; optimize OK (game.inc), line = 224
 
 	lda #$45
 	sta TAIL_DIR
@@ -1614,7 +1614,7 @@ a_0008
 l_0405
 a_0004
 
-; optimize OK (game.inc), line = 228
+; optimize OK (game.inc), line = 229
 
 	ldy TAIL_POS+1
 	sty :bp+1
@@ -1646,9 +1646,139 @@ a_0004
 	eif
 .endl
 
-.local	UPDATE_SNAKE					; PROCEDURE
+.local	UPDATE_SNAKE					; PROCEDURE | REGISTER
+	sta S
 
-; optimize OK (game.inc), line = 235
+; optimize OK (game.inc), line = 236
+
+	and #$3F
+	sta @CASETMP_0009
+	cmp #$01
+	jne l_0456
+@
+
+; optimize OK (game.inc), line = 237
+
+	lda #$4F
+	sta SNAKE.BODY
+
+	jmp a_0009
+l_0456
+	cmp #$02
+	jne l_0463
+@
+
+; optimize OK (game.inc), line = 238
+
+	lda #$4E
+	sta SNAKE.BODY
+
+	jmp a_0009
+l_0463
+	cmp #$04
+	jne l_0470
+@
+
+; optimize OK (game.inc), line = 239
+
+	lda #$51
+	sta SNAKE.BODY
+
+	jmp a_0009
+l_0470
+	cmp #$08
+	jne l_047D
+@
+
+; optimize OK (game.inc), line = 240
+
+	lda #$50
+	sta SNAKE.BODY
+
+	jmp a_0009
+l_047D
+	cmp #$10
+	jne l_048A
+@
+
+; optimize OK (game.inc), line = 241
+
+	lda #$4C
+	sta SNAKE.BODY
+
+	jmp a_0009
+l_048A
+	cmp #$20
+	jne l_0497
+@
+
+; optimize OK (game.inc), line = 242
+
+	lda #$4D
+	sta SNAKE.BODY
+
+l_0497
+a_0009
+
+; optimize OK (game.inc), line = 245
+
+	lda S
+	and #$C0
+	sta @CASETMP_000A
+	cmp #$00
+	jne l_04B4
+@
+
+; optimize OK (game.inc), line = 246
+
+	lda #$48
+	sta SNAKE.HEAD
+	lda #$E7
+	sta SNAKE.M
+
+	jmp a_000A
+l_04B4
+	cmp #$40
+	jne l_04C5
+@
+
+; optimize OK (game.inc), line = 247
+
+	lda #$49
+	sta SNAKE.HEAD
+	lda #$19
+	sta SNAKE.M
+
+	jmp a_000A
+l_04C5
+	cmp #$80
+	jne l_04D6
+@
+
+; optimize OK (game.inc), line = 248
+
+	lda #$4B
+	sta SNAKE.HEAD
+	lda #$01
+	sta SNAKE.M
+
+	jmp a_000A
+l_04D6
+	cmp #$C0
+	jne l_04E7
+@
+
+; optimize OK (game.inc), line = 249
+
+	lda #$4A
+	sta SNAKE.HEAD
+	lda #$FF
+	sta SNAKE.M
+
+l_04E7
+a_000A
+
+; optimize OK (game.inc), line = 252
 
 	ldy #$00
 	lda SNAKE.M
@@ -1660,7 +1790,7 @@ a_0004
 	adc HEAD_POS+1
 	sta T0W+1
 
-; optimize OK (game.inc), line = 236
+; optimize OK (game.inc), line = 253
 
 	sta :bp+1
 	ldy T0W
@@ -1669,36 +1799,36 @@ a_0004
 	lda #$00
 	sta T1W+1
 
-; optimize OK (game.inc), line = 238
+; optimize OK (game.inc), line = 255
 
 	bne @+
 	lda T1W
 	cmp #$20
 @
-	jeq l_0474x
+	jeq l_0524x
 	lda T1W+1
 	bne @+
 	lda T1W
 	cmp #$40
 @
-	jne l_0474
-l_0474x
+	jne l_0524
+l_0524x
 
-; optimize OK (game.inc), line = 240
+; optimize OK (game.inc), line = 257
 
 	lda T1W+1
 	bne @+
 	lda T1W
 	cmp #$40
 @
-	jne l_0486
+	jne l_0536
 
-; optimize OK (game.inc), line = 241
+; optimize OK (game.inc), line = 258
 
 	lda #$00
 	sta FRUIT_ON_BOARD
 
-; optimize OK (game.inc), line = 243
+; optimize OK (game.inc), line = 260
 
 	lda #$10
 	sta SYS_VIC20.UPDATE_COUNTER_4.V
@@ -1712,19 +1842,19 @@ l_0474x
 	sta SYS_VIC20.UPDATE_COUNTER_4.SCR_COUNTER+1
 	jsr SYS_VIC20.UPDATE_COUNTER_4
 
-; optimize FAIL (0, game.inc), line = 245
+; optimize FAIL (0, game.inc), line = 262
 
 	dec LEVEL_UP
 
-; optimize OK (game.inc), line = 246
+; optimize OK (game.inc), line = 263
 
-	jne l_04A5
+	jne l_0555
 
-; optimize FAIL (0, game.inc), line = 247
+; optimize FAIL (0, game.inc), line = 264
 
 	inc LEVEL
 
-; optimize OK (game.inc), line = 248
+; optimize OK (game.inc), line = 265
 
 	lda #$01
 	sta SYS_VIC20.UPDATE_COUNTER_2.V
@@ -1738,20 +1868,20 @@ l_0474x
 	sta SYS_VIC20.UPDATE_COUNTER_2.SCR_COUNTER+1
 	jsr SYS_VIC20.UPDATE_COUNTER_2
 
-; optimize OK (game.inc), line = 249
+; optimize OK (game.inc), line = 266
 
 	lda #$0A
 	sta LEVEL_UP
-l_04A5
-	jmp l_04BD
-l_0486
+l_0555
+	jmp l_056D
+l_0536
 
-; optimize FAIL ('MOVE_TAIL', game.inc), line = 253
+; optimize FAIL ('MOVE_TAIL', game.inc), line = 270
 
 	jsr MOVE_TAIL
-l_04BD
+l_056D
 
-; optimize OK (game.inc), line = 255
+; optimize OK (game.inc), line = 272
 
 	ldy HEAD_POS+1
 	sty :bp+1
@@ -1759,7 +1889,7 @@ l_04BD
 	lda SNAKE.BODY
 	sta (:bp),y
 
-; optimize OK (game.inc), line = 257
+; optimize OK (game.inc), line = 274
 
 	ldy #$00
 	lda SNAKE.M
@@ -1771,7 +1901,7 @@ l_04BD
 	adc HEAD_POS_COL+1
 	sta HEAD_POS_COL+1
 
-; optimize OK (game.inc), line = 258
+; optimize OK (game.inc), line = 275
 
 	ldy T0W+1
 	sty :bp+1
@@ -1779,7 +1909,7 @@ l_04BD
 	lda SNAKE.HEAD
 	sta (:bp),y
 
-; optimize OK (game.inc), line = 259
+; optimize OK (game.inc), line = 276
 
 	ldy HEAD_POS_COL+1
 	sty :bp+1
@@ -1787,20 +1917,30 @@ l_04BD
 	lda #$01
 	sta (:bp),y
 
-; optimize OK (game.inc), line = 260
+; optimize OK (game.inc), line = 277
 
 	lda T0W
 	sta HEAD_POS
 	lda T0W+1
 	sta HEAD_POS+1
-	jmp l_04E7
-l_0474
+	jmp l_0597
+l_0524
 
-; optimize OK (game.inc), line = 263
+; optimize OK (game.inc), line = 280
 
 	lda #$01
 	sta GAME_OVER
-l_04E7
+l_0597
+
+; ------------------------------------------------------------
+
+S	= :EDX
+@CASETMP_0009	= DATAORIGIN+$0009
+@CASETMP_000A	= DATAORIGIN+$000A
+
+@VarData	= @CASETMP_0009
+@VarDataSize	= 2
+
 @exit
 	.ifdef @new
 	lda <@VarData
@@ -1815,80 +1955,65 @@ l_04E7
 
 .local	MOVE_SNAKE					; PROCEDURE
 
-; optimize OK (game.inc), line = 269
+; optimize OK (game.inc), line = 286
 
 	lda HEAD_DIR
-	sta @CASETMP_0009
+	sta @CASETMP_000B
 	cmp #$44
-	jne l_04FA
+	jne l_05AA
 @
 
-; optimize OK (game.inc), line = 270
+; optimize OK (game.inc), line = 287
 
-	lda #$48
-	sta SNAKE.HEAD
-	lda #$4C
-	sta SNAKE.BODY
-	lda #$E7
-	sta SNAKE.M
+	lda #$10
+	sta T0B
 
-	jmp a_0009
-l_04FA
+	jmp a_000B
+l_05AA
 	cmp #$45
-	jne l_050F
+	jne l_05B7
 @
 
-; optimize OK (game.inc), line = 271
+; optimize OK (game.inc), line = 288
 
-	lda #$49
-	sta SNAKE.HEAD
-	lda #$4C
-	sta SNAKE.BODY
-	lda #$19
-	sta SNAKE.M
+	lda #$50
+	sta T0B
 
-	jmp a_0009
-l_050F
+	jmp a_000B
+l_05B7
 	cmp #$46
-	jne l_0524
+	jne l_05C4
 @
 
-; optimize OK (game.inc), line = 272
+; optimize OK (game.inc), line = 289
 
-	lda #$4B
-	sta SNAKE.HEAD
-	lda #$4D
-	sta SNAKE.BODY
-	lda #$01
-	sta SNAKE.M
+	lda #$A0
+	sta T0B
 
-	jmp a_0009
-l_0524
+	jmp a_000B
+l_05C4
 	cmp #$47
-	jne l_0539
+	jne l_05D1
 @
 
-; optimize OK (game.inc), line = 273
+; optimize OK (game.inc), line = 290
 
-	lda #$4A
-	sta SNAKE.HEAD
-	lda #$4D
-	sta SNAKE.BODY
-	lda #$FF
-	sta SNAKE.M
+	lda #$E0
+	sta T0B
 
-l_0539
-a_0009
+l_05D1
+a_000B
 
-; optimize FAIL ('UPDATE_SNAKE', game.inc), line = 276
+; optimize OK (game.inc), line = 293
 
+	lda T0B
 	jsr UPDATE_SNAKE
 
 ; ------------------------------------------------------------
 
-@CASETMP_0009	= DATAORIGIN+$0009
+@CASETMP_000B	= DATAORIGIN+$000B
 
-@VarData	= @CASETMP_0009
+@VarData	= @CASETMP_000B
 @VarDataSize	= 1
 
 @exit
@@ -1905,246 +2030,215 @@ a_0009
 
 .local	JOY_HANDLER					; PROCEDURE
 
-; optimize OK (game.inc), line = 283
+; optimize OK (game.inc), line = 300
 
 	lda #$00
-	sta SNAKE.BODY
-
-; optimize OK (game.inc), line = 285
-
-	lda SYS_VIC20.JOY
-	and #$04
-	jeq l_0578
-	lda HEAD_DIR
-	cmp #$45
-	jeq l_0578
-
-; optimize OK (game.inc), line = 286
-
-	lda #$48
-	sta SNAKE.HEAD
-	lda #$E7
-	sta SNAKE.M
-
-; optimize OK (game.inc), line = 287
-
-	lda HEAD_DIR
-	sta @CASETMP_000A
-	cmp #$47
-	jne l_058C
-@
-
-; optimize OK (game.inc), line = 288
-
-	lda #$4F
-	sta SNAKE.BODY
-
-	jmp a_000A
-l_058C
-	cmp #$46
-	jne l_0599
-@
-
-; optimize OK (game.inc), line = 289
-
-	lda #$4E
-	sta SNAKE.BODY
-
-l_0599
-a_000A
-
-; optimize OK (game.inc), line = 291
-
-	lda #$44
-	sta HEAD_DIR
-	jmp l_05B0
-l_0578
-
-; optimize OK (game.inc), line = 293
-
-	lda SYS_VIC20.JOY
-	and #$08
-	jeq l_05D2
-	lda HEAD_DIR
-	cmp #$44
-	jeq l_05D2
-
-; optimize OK (game.inc), line = 294
-
-	lda #$49
-	sta SNAKE.HEAD
-	lda #$19
-	sta SNAKE.M
-
-; optimize OK (game.inc), line = 295
-
-	lda HEAD_DIR
-	sta @CASETMP_000B
-	cmp #$47
-	jne l_05E6
-@
-
-; optimize OK (game.inc), line = 296
-
-	lda #$51
-	sta SNAKE.BODY
-
-	jmp a_000B
-l_05E6
-	cmp #$46
-	jne l_05F3
-@
-
-; optimize OK (game.inc), line = 297
-
-	lda #$50
-	sta SNAKE.BODY
-
-l_05F3
-a_000B
-
-; optimize OK (game.inc), line = 299
-
-	lda #$45
-	sta HEAD_DIR
-	jmp l_060A
-l_05D2
-
-; optimize OK (game.inc), line = 301
-
-	lda SYS_VIC20.JOY
-	jpl l_062C
-	lda HEAD_DIR
-	cmp #$47
-	jeq l_062C
+	sta T0B
 
 ; optimize OK (game.inc), line = 302
 
-	lda #$4B
-	sta SNAKE.HEAD
-	lda #$01
-	sta SNAKE.M
+	lda SYS_VIC20.JOY
+	and #$04
+	jeq l_060B
+	lda HEAD_DIR
+	cmp #$45
+	jeq l_060B
 
 ; optimize OK (game.inc), line = 303
 
-	lda HEAD_DIR
 	sta @CASETMP_000C
-	cmp #$44
-	jne l_0640
+	cmp #$47
+	jne l_0617
 @
 
 ; optimize OK (game.inc), line = 304
 
-	lda #$51
-	sta SNAKE.BODY
+	lda #$01
+	sta T0B
 
 	jmp a_000C
-l_0640
-	cmp #$45
-	jne l_064D
+l_0617
+	cmp #$46
+	jne l_0624
 @
 
 ; optimize OK (game.inc), line = 305
 
-	lda #$4F
-	sta SNAKE.BODY
+	lda #$02
+	sta T0B
 
-l_064D
+l_0624
 a_000C
 
 ; optimize OK (game.inc), line = 307
 
-	lda #$46
+	lda #$44
 	sta HEAD_DIR
-	jmp l_0664
-l_062C
+	jmp l_063B
+l_060B
 
 ; optimize OK (game.inc), line = 309
 
 	lda SYS_VIC20.JOY
-	and #$10
-	jeq l_0686
+	and #$08
+	jeq l_065D
 	lda HEAD_DIR
-	cmp #$46
-	jeq l_0686
+	cmp #$44
+	jeq l_065D
 
 ; optimize OK (game.inc), line = 310
 
-	lda #$4A
-	sta SNAKE.HEAD
-	lda #$FF
-	sta SNAKE.M
+	sta @CASETMP_000D
+	cmp #$47
+	jne l_0669
+@
 
 ; optimize OK (game.inc), line = 311
 
-	lda HEAD_DIR
-	sta @CASETMP_000D
-	cmp #$44
-	jne l_069A
+	lda #$44
+	sta T0B
+
+	jmp a_000D
+l_0669
+	cmp #$46
+	jne l_0676
 @
 
 ; optimize OK (game.inc), line = 312
 
-	lda #$50
-	sta SNAKE.BODY
+	lda #$48
+	sta T0B
 
-	jmp a_000D
-l_069A
-	cmp #$45
-	jne l_06A7
-@
-
-; optimize OK (game.inc), line = 313
-
-	lda #$4E
-	sta SNAKE.BODY
-
-l_06A7
+l_0676
 a_000D
 
-; optimize OK (game.inc), line = 315
+; optimize OK (game.inc), line = 314
 
-	lda #$47
+	lda #$45
 	sta HEAD_DIR
-l_0686
-l_0664
-l_060A
-l_05B0
+	jmp l_068D
+l_065D
+
+; optimize OK (game.inc), line = 316
+
+	lda SYS_VIC20.JOY
+	jpl l_06AF
+	lda HEAD_DIR
+	cmp #$47
+	jeq l_06AF
 
 ; optimize OK (game.inc), line = 317
 
+	sta @CASETMP_000E
+	cmp #$44
+	jne l_06BB
+@
+
+; optimize OK (game.inc), line = 318
+
+	lda #$84
+	sta T0B
+
+	jmp a_000E
+l_06BB
+	cmp #$45
+	jne l_06C8
+@
+
+; optimize OK (game.inc), line = 319
+
+	lda #$81
+	sta T0B
+
+l_06C8
+a_000E
+
+; optimize OK (game.inc), line = 321
+
+	lda #$46
+	sta HEAD_DIR
+	jmp l_06DF
+l_06AF
+
+; optimize OK (game.inc), line = 323
+
+	lda SYS_VIC20.JOY
+	and #$10
+	jeq l_0701
+	lda HEAD_DIR
+	cmp #$46
+	jeq l_0701
+
+; optimize OK (game.inc), line = 324
+
+	sta @CASETMP_000F
+	cmp #$44
+	jne l_070D
+@
+
+; optimize OK (game.inc), line = 325
+
+	lda #$C8
+	sta T0B
+
+	jmp a_000F
+l_070D
+	cmp #$45
+	jne l_071A
+@
+
+; optimize OK (game.inc), line = 326
+
+	lda #$C2
+	sta T0B
+
+l_071A
+a_000F
+
+; optimize OK (game.inc), line = 328
+
+	lda #$47
+	sta HEAD_DIR
+l_0701
+l_06DF
+l_068D
+l_063B
+
+; optimize OK (game.inc), line = 330
+
 	lda SYS_VIC20.JOY
 	and #$20
-	jeq l_06CD
+	jeq l_0740
 	lda SNAKE_SPEED
 	lsr @
 	lsr @
 	sta SNAKE_SPEED
-l_06CD
+l_0740
 
-; optimize OK (game.inc), line = 319
+; optimize OK (game.inc), line = 332
 
-	lda SNAKE.BODY
-	jeq l_06EC
+	lda T0B
+	jeq l_075F
 
-; optimize OK (game.inc), line = 320
+; optimize OK (game.inc), line = 333
 
 	lda SNAKE_SPEED
 	sta SNAKE_SPD_C
 
-; optimize FAIL ('UPDATE_SNAKE', game.inc), line = 321
+; optimize OK (game.inc), line = 334
 
+	lda T0B
 	jsr UPDATE_SNAKE
-l_06EC
+l_075F
 
 ; ------------------------------------------------------------
 
-@CASETMP_000A	= DATAORIGIN+$000A
-@CASETMP_000B	= DATAORIGIN+$000B
 @CASETMP_000C	= DATAORIGIN+$000C
 @CASETMP_000D	= DATAORIGIN+$000D
+@CASETMP_000E	= DATAORIGIN+$000E
+@CASETMP_000F	= DATAORIGIN+$000F
 
-@VarData	= @CASETMP_000A
+@VarData	= @CASETMP_000C
 @VarDataSize	= 4
 
 @exit
@@ -2161,7 +2255,7 @@ l_06EC
 
 .local	PUT_FRUIT					; PROCEDURE
 
-; optimize OK (game.inc), line = 329
+; optimize OK (game.inc), line = 342
 
 	lda #$01
 	sta SYS_VIC20.PRND_0113.A
@@ -2173,7 +2267,7 @@ l_06EC
 	lda SYS_VIC20.RND
 	sta T0B
 
-; optimize OK (game.inc), line = 330
+; optimize OK (game.inc), line = 343
 
 	lda #$01
 	sta SYS_VIC20.PRND_0113.A
@@ -2185,7 +2279,7 @@ l_06EC
 	lda SYS_VIC20.RND
 	sta T1B
 
-; optimize OK (game.inc), line = 332
+; optimize OK (game.inc), line = 345
 
 	sta :ecx
 	lda #$19
@@ -2207,16 +2301,16 @@ l_06EC
 	scc
 	inc T0W+1
 
-; optimize OK (game.inc), line = 334
+; optimize OK (game.inc), line = 347
 
 	ldy T0W+1
 	sty :bp+1
 	ldy T0W
 	lda (:bp),y
 	cmp #$20
-	jne l_072E
+	jne l_07A4
 
-; optimize OK (game.inc), line = 335
+; optimize OK (game.inc), line = 348
 
 	lda T0B
 	sta SYS_VIC20.SET_XY.X
@@ -2229,11 +2323,11 @@ l_06EC
 	sta SYS_VIC20.PUT_CHAR.C
 	jsr SYS_VIC20.PUT_CHAR
 
-; optimize OK (game.inc), line = 336
+; optimize OK (game.inc), line = 349
 
 	lda #$01
 	sta FRUIT_ON_BOARD
-l_072E
+l_07A4
 @exit
 	.ifdef @new
 	lda <@VarData
@@ -2248,20 +2342,20 @@ l_072E
 
 .local	UPDATE_TIME					; PROCEDURE
 
-; optimize FAIL (0, game.inc), line = 344
+; optimize FAIL (0, game.inc), line = 357
 
 	dec TIME_ENTITY
 
-; optimize OK (game.inc), line = 345
+; optimize OK (game.inc), line = 358
 
-	jne l_0759
+	jne l_07CF
 
-; optimize OK (game.inc), line = 346
+; optimize OK (game.inc), line = 359
 
 	lda #$C8
 	sta TIME_ENTITY
 
-; optimize OK (game.inc), line = 347
+; optimize OK (game.inc), line = 360
 
 	lda #$01
 	sta SYS_VIC20.UPDATE_COUNTER_2.V
@@ -2274,7 +2368,7 @@ l_072E
 	lda #$1E
 	sta SYS_VIC20.UPDATE_COUNTER_2.SCR_COUNTER+1
 	jsr SYS_VIC20.UPDATE_COUNTER_2
-l_0759
+l_07CF
 @exit
 	.ifdef @new
 	lda <@VarData
@@ -2289,44 +2383,44 @@ l_0759
 
 .local	SNAKE_STEP					; PROCEDURE
 
-; optimize OK (game.inc), line = 355
+; optimize OK (game.inc), line = 368
 
 	lda #$0E
 	sub LEVEL
 	sta SNAKE_SPEED
 
-; optimize OK (game.inc), line = 356
+; optimize OK (game.inc), line = 369
 
 	cmp #$02
-	jcs l_0784
+	jcs l_07FA
 	lda #$02
 	sta SNAKE_SPEED
-l_0784
+l_07FA
 
-; optimize FAIL ('JOY_HANDLER', game.inc), line = 358
+; optimize FAIL ('JOY_HANDLER', game.inc), line = 371
 
 	jsr JOY_HANDLER
 
-; optimize OK (game.inc), line = 360
+; optimize OK (game.inc), line = 373
 
 	lda SNAKE_SPD_C
-	jne l_079E
+	jne l_0814
 
-; optimize FAIL ('MOVE_SNAKE', game.inc), line = 361
+; optimize FAIL ('MOVE_SNAKE', game.inc), line = 374
 
 	jsr MOVE_SNAKE
 
-; optimize OK (game.inc), line = 362
+; optimize OK (game.inc), line = 375
 
 	lda SNAKE_SPEED
 	sta SNAKE_SPD_C
-	jmp l_07AF
-l_079E
+	jmp l_0825
+l_0814
 
-; optimize FAIL (0, game.inc), line = 364
+; optimize FAIL (0, game.inc), line = 377
 
 	dec SNAKE_SPD_C
-l_07AF
+l_0825
 @exit
 	.ifdef @new
 	lda <@VarData
@@ -2341,7 +2435,7 @@ l_07AF
 
 .local	SET_GAME					; PROCEDURE
 
-; optimize OK (game.inc), line = 371
+; optimize OK (game.inc), line = 384
 
 	lda #$20
 	jsr SYS_VIC20.CLRSCR
@@ -2350,47 +2444,47 @@ l_07AF
 	jsr PUT_SNAKE
 	jsr PRINT_HI_SCORE
 
-; optimize OK (game.inc), line = 373
+; optimize OK (game.inc), line = 386
 
 	lda #$C8
 	sta TIME_ENTITY
 
-; optimize OK (game.inc), line = 374
+; optimize OK (game.inc), line = 387
 
 	lda #$0A
 	sta LEVEL_UP
 
-; optimize OK (game.inc), line = 375
+; optimize OK (game.inc), line = 388
 
 	lda #$00
 	sta SCORE_BCD
 	sta SCORE_BCD+1
 
-; optimize OK (game.inc), line = 376
+; optimize OK (game.inc), line = 389
 
 	sta TIME_BCD
 
-; optimize OK (game.inc), line = 377
+; optimize OK (game.inc), line = 390
 
 	sta LEVEL_BCD
 
-; optimize OK (game.inc), line = 378
+; optimize OK (game.inc), line = 391
 
 	sta LEVEL
 
-; optimize OK (game.inc), line = 379
+; optimize OK (game.inc), line = 392
 
 	sta SNAKE_SPD_C
 
-; optimize OK (game.inc), line = 380
+; optimize OK (game.inc), line = 393
 
 	sta FRUIT_ON_BOARD
 
-; optimize OK (game.inc), line = 381
+; optimize OK (game.inc), line = 394
 
 	sta GAME_OVER
 
-; optimize OK (game.inc), line = 383
+; optimize OK (game.inc), line = 396
 
 	lda #$01
 	jsr SYS_VIC20.WAIT_00DC
@@ -2408,20 +2502,20 @@ l_07AF
 
 .local	RESTART_GAME					; PROCEDURE
 
-; optimize FAIL ('HALL_OF_FAME', game.inc), line = 390
+; optimize FAIL ('HALL_OF_FAME', game.inc), line = 403
 
 	jsr HALL_OF_FAME
 
-; optimize OK (game.inc), line = 391
+; optimize OK (game.inc), line = 404
 
 	lda #$19
 	jsr SYS_VIC20.WAIT_00DC
 
-; optimize FAIL ('PRESS_FIRE', game.inc), line = 392
+; optimize FAIL ('PRESS_FIRE', game.inc), line = 405
 
 	jsr PRESS_FIRE
 
-; optimize FAIL ('SET_GAME', game.inc), line = 393
+; optimize FAIL ('SET_GAME', game.inc), line = 406
 
 	jsr SET_GAME
 @exit
@@ -2438,35 +2532,35 @@ l_07AF
 
 .local	VBI						; PROCEDURE
 
-; optimize OK (game.inc), line = 400
+; optimize OK (game.inc), line = 413
 
 	lda GAME_OVER
-	jne l_07FF
+	jne l_0875
 
-; optimize FAIL ('UPDATE_TIME', game.inc), line = 401
+; optimize FAIL ('UPDATE_TIME', game.inc), line = 414
 
 	jsr UPDATE_TIME
 
-; optimize FAIL ('SNAKE_STEP', game.inc), line = 402
+; optimize FAIL ('SNAKE_STEP', game.inc), line = 415
 
 	jsr SNAKE_STEP
 
-; optimize OK (game.inc), line = 403
+; optimize OK (game.inc), line = 416
 
 	lda FRUIT_ON_BOARD
-	jne l_0811
+	jne l_0887
 	jsr PUT_FRUIT
-l_0811
+l_0887
 
-; optimize OK (game.inc), line = 404
+; optimize OK (game.inc), line = 417
 
 	lda TIME_BCD
 	cmp #$99
-	jne l_0827
+	jne l_089D
 	lda #$01
 	sta GAME_OVER
-l_0827
-l_07FF
+l_089D
+l_0875
 @exit
 	.ifdef @new
 	lda <@VarData
@@ -2481,7 +2575,7 @@ l_07FF
 
 .local	PREPARE						; PROCEDURE
 
-; optimize OK (game.inc), line = 413
+; optimize OK (game.inc), line = 425
 
 	lda #$00
 	sta SYSTEM.MOVE_00B1.SOURCE
@@ -2499,7 +2593,7 @@ l_07FF
 	m@INLINE
 	.endl
 
-; optimize OK (game.inc), line = 414
+; optimize OK (game.inc), line = 426
 
 	lda #$12
 	sta SYSTEM.MOVE_00B1.SOURCE
@@ -2517,7 +2611,7 @@ l_07FF
 	m@INLINE
 	.endl
 
-; optimize FAIL ('VBI', game.inc), line = 420
+; optimize FAIL ('VBI', game.inc), line = 432
 
 	jsr VBI
 @exit
@@ -2533,12 +2627,12 @@ l_07FF
 .endl
 l_0067
 
-; optimize OK (game.inc), line = 426
+; optimize OK (game.inc), line = 438
 
 	lda #$00
 	sta GAME_OVER
 
-; optimize FAIL ('PREPARE', game.inc), line = 428
+; optimize FAIL ('PREPARE', game.inc), line = 440
 
 	jsr PREPARE
 	jsr SYS_VIC20.SYS_INIT
@@ -2546,7 +2640,7 @@ l_0067
 	m@INLINE
 	.endl
 
-; optimize OK (game.inc), line = 430
+; optimize OK (game.inc), line = 442
 
 	lda #$00
 	sta HI_SCORE_BCD
@@ -2554,18 +2648,18 @@ l_0067
 	jsr SET_GAME
 
 ; --- RepeatUntilProlog
-l_084B
+l_08C1
 
-; optimize OK (game.inc), line = 433
+; optimize OK (game.inc), line = 445
 
 	lda GAME_OVER
-	jeq l_0857
+	jeq l_08CD
 	jsr RESTART_GAME
-l_0857
+l_08CD
 
-; optimize OK (game.inc), line = 434
+; optimize OK (game.inc), line = 446
 
-	jmp l_084B
+	jmp l_08C1
 
 ; ------------------------------------------------------------
 
@@ -2646,12 +2740,12 @@ HI_SCORE_BCD	= $82
 HEAD_POS	= $84
 HEAD_POS_COL	= $86
 TAIL_POS	= $88
-adr.SNAKE	= $8A
+FRUIT_ON_BOARD	= $8A
+adr.SNAKE	= $8B
 .var SNAKE	= adr.SNAKE .word
-SNAKE.HEAD	= $8A
-SNAKE.BODY	= $8B
-SNAKE.M	= $8C
-FRUIT_ON_BOARD	= $8D
+SNAKE.HEAD	= $8B
+SNAKE.BODY	= $8C
+SNAKE.M	= $8D
 GAME_OVER	= $FB
 SF0B	= $FB
 SF1B	= $FC
@@ -2712,7 +2806,7 @@ RAW
 DATAORIGIN
 
 VARINITSIZE	= *-DATAORIGIN
-VARDATASIZE	= 14
+VARDATASIZE	= 16
 
 PROGRAMSTACK	= DATAORIGIN+VARDATASIZE
 

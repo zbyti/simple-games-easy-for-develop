@@ -59,9 +59,10 @@ var
   head_pos_col   : word absolute $86;
   tail_pos       : word absolute $88;
 
-  snake          : TSnake absolute $8a;
+  fruit_on_board : boolean absolute $8a;
 
-  fruit_on_board : boolean absolute $8d;
+  snake          : TSnake absolute $8b;
+
 
   // system free ZP variables
   game_over      : boolean absolute $fb;
@@ -230,8 +231,24 @@ end;
 
 //:-------------------------------------------------------------:
 
-procedure update_snake;
+procedure update_snake(s: byte); register;
 begin
+  case (s and %00111111) of
+    $01: snake.body := C_BODY_SE;
+    $02: snake.body := C_BODY_SW;
+    $04: snake.body := C_BODY_NE;
+    $08: snake.body := C_BODY_NW;
+    $10: snake.body := C_BODY_V;
+    $20: snake.body := C_BODY_H;
+  end;
+
+  case (s and %11000000) of
+    $00 : begin snake.head := C_HEAD_UP;    snake.m := MOVE_UP    end;
+    $40 : begin snake.head := C_HEAD_DOWN;  snake.m := MOVE_DOWN  end;
+    $80 : begin snake.head := C_HEAD_RIGHT; snake.m := MOVE_RIGHT end;
+    $c0 : begin snake.head := C_HEAD_LEFT;  snake.m := MOVE_LEFT  end;
+  end;
+
   t0w := head_pos + snake.m;
   t1w := peek(t0w);
 
@@ -267,58 +284,54 @@ end;
 procedure move_snake;
 begin
   case head_dir of
-    UP    : begin snake.head := C_HEAD_UP;    snake.body := C_BODY_V; snake.m := MOVE_UP    end;
-    DOWN  : begin snake.head := C_HEAD_DOWN;  snake.body := C_BODY_V; snake.m := MOVE_DOWN  end;
-    RIGHT : begin snake.head := C_HEAD_RIGHT; snake.body := C_BODY_H; snake.m := MOVE_RIGHT end;
-    LEFT  : begin snake.head := C_HEAD_LEFT;  snake.body := C_BODY_H; snake.m := MOVE_LEFT  end;
+    UP    : t0b := %00010000; // %00 01 xxxx => body: C_BODY_V
+    DOWN  : t0b := %01010000; // %01 01 xxxx => body: C_BODY_V
+    RIGHT : t0b := %10100000; // %10 10 xxxx => body: C_BODY_H
+    LEFT  : t0b := %11100000; // %11 10 xxxx => body: C_BODY_H
   end;
 
-  update_snake;
+  update_snake(t0b);
 end;
 
 //:-------------------------------------------------------------:
 
 procedure joy_handler;
 begin
-  snake.body := 0;
+  t0b := 0;
 
   if (JOY and JOY_UP <> 0) and (head_dir <> DOWN) then begin
-    snake.head := C_HEAD_UP; snake.m := MOVE_UP;
     case head_dir of
-      LEFT  : snake.body := C_BODY_SE;
-      RIGHT : snake.body := C_BODY_SW;
+      LEFT  : t0b := %00000001; // C_BODY_SE
+      RIGHT : t0b := %00000010; // C_BODY_SW
     end;
     head_dir := UP;
   end
   else if (JOY and JOY_DOWN <> 0) and (head_dir <> UP) then begin
-    snake.head := C_HEAD_DOWN; snake.m := MOVE_DOWN;
     case head_dir of
-      LEFT  : snake.body := C_BODY_NE;
-      RIGHT : snake.body := C_BODY_NW;
+      LEFT  : t0b := %01000100; // C_BODY_NE
+      RIGHT : t0b := %01001000; // C_BODY_NW
     end;
     head_dir := DOWN;
   end
   else if (JOY and JOY_RIGHT <> 0) and (head_dir <> LEFT) then begin
-    snake.head := C_HEAD_RIGHT; snake.m := MOVE_RIGHT;
     case head_dir of
-      UP    : snake.body := C_BODY_NE;
-      DOWN  : snake.body := C_BODY_SE;
+      UP    : t0b := %10000100; // C_BODY_NE
+      DOWN  : t0b := %10000001; // C_BODY_SE
     end;
     head_dir := RIGHT;
   end
   else if (JOY and JOY_LEFT <> 0) and (head_dir <> RIGHT) then begin
-    snake.head := C_HEAD_LEFT; snake.m := MOVE_LEFT;
     case head_dir of
-      UP    : snake.body := C_BODY_NW;
-      DOWN  : snake.body := C_BODY_SW;
+      UP    : t0b := %11001000; // C_BODY_NW
+      DOWN  : t0b := %11000010; // C_BODY_SW
     end;
     head_dir := LEFT;
   end;
   if (JOY and JOY_FIRE <> 0) then snake_speed := snake_speed shr 2;
 
-  if snake.body <> 0 then begin
+  if t0b <> 0 then begin
     snake_spd_c := snake_speed;
-    update_snake;
+    update_snake(t0b);
   end;
 end;
 
