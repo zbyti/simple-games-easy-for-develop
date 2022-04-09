@@ -122,7 +122,7 @@ end;
 
 procedure press_fire;
 begin
-  set_xy(ROW_SIZE - length(txt_points) - 1, 0);
+  set_xy(ROW_SIZE - length(txt_fire) - 2, 0);
   print(GAME_WHITE, txt_fire);
 
   repeat until (JOY and JOY_FIRE) <> 0;
