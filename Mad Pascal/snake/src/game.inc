@@ -196,32 +196,16 @@ begin
   t0b := peek(tail_pos);
 
   case tail_dir of
-    UP : begin
+    UP, DOWN : begin
       case t0b of
-        C_BODY_V  : tail_dir := UP;
-        C_BODY_NW : tail_dir := LEFT;
-        C_BODY_NE : tail_dir := RIGHT;
+        C_BODY_NW, C_BODY_SW : tail_dir := LEFT;
+        C_BODY_NE, C_BODY_SE : tail_dir := RIGHT;
       end;
     end;
-    DOWN : begin
+    RIGHT, LEFT : begin
       case t0b of
-        C_BODY_V  : tail_dir := DOWN;
-        C_BODY_SW : tail_dir := LEFT;
-        C_BODY_SE : tail_dir := RIGHT;
-      end;
-    end;
-    RIGHT : begin
-      case t0b of
-        C_BODY_H  : tail_dir := RIGHT;
-        C_BODY_SW : tail_dir := UP;
-        C_BODY_NW : tail_dir := DOWN;
-      end;
-    end;
-    LEFT : begin
-      case t0b of
-        C_BODY_H  : tail_dir := LEFT;
-        C_BODY_SE : tail_dir := UP;
-        C_BODY_NE : tail_dir := DOWN;
+        C_BODY_SW, C_BODY_SE : tail_dir := UP;
+        C_BODY_NW, C_BODY_NE : tail_dir := DOWN;
       end;
     end;
   end;
