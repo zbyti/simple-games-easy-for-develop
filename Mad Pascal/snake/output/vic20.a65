@@ -2240,7 +2240,9 @@ l_0720
 	eif
 .endl
 
-.local	UPDATE_TIME					; PROCEDURE
+.local	UPDATE_TIME					; PROCEDURE | INLINE
+
+	.MACRO m@INLINE
 
 ; optimize FAIL (0, game.inc), line = 341
 
@@ -2269,19 +2271,13 @@ l_0720
 	sta SYS_VIC20.UPDATE_COUNTER_2.SCR_COUNTER+1
 	jsr SYS_VIC20.UPDATE_COUNTER_2
 l_074B
+	.ENDM
 @exit
-	.ifdef @new
-	lda <@VarData
-	sta :ztmp
-	lda >@VarData
-	ldy #@VarDataSize-1
-	jmp @FreeMem
-	els
-	rts						; ret
-	eif
 .endl
 
-.local	SNAKE_STEP					; PROCEDURE
+.local	SNAKE_STEP					; PROCEDURE | INLINE
+
+	.MACRO m@INLINE
 
 ; optimize OK (game.inc), line = 352
 
@@ -2321,16 +2317,8 @@ l_0790
 
 	dec SNAKE_SPD_C
 l_07A1
+	.ENDM
 @exit
-	.ifdef @new
-	lda <@VarData
-	sta :ztmp
-	lda >@VarData
-	ldy #@VarDataSize-1
-	jmp @FreeMem
-	els
-	rts						; ret
-	eif
 .endl
 
 .local	SET_GAME					; PROCEDURE
@@ -2437,13 +2425,17 @@ l_07A1
 	lda GAME_OVER
 	jne l_07F1
 
-; optimize FAIL ('UPDATE_TIME', game.inc), line = 398
+; optimize FAIL ('m@INLINE', game.inc), line = 398
 
-	jsr UPDATE_TIME
+	.local +MAIN.UPDATE_TIME
+	m@INLINE
+	.endl
 
-; optimize FAIL ('SNAKE_STEP', game.inc), line = 399
+; optimize FAIL ('m@INLINE', game.inc), line = 399
 
-	jsr SNAKE_STEP
+	.local +MAIN.SNAKE_STEP
+	m@INLINE
+	.endl
 
 ; optimize OK (game.inc), line = 400
 

@@ -336,7 +336,7 @@ end;
 
 //:-------------------------------------------------------------:
 
-procedure update_time;
+procedure update_time; inline;
 begin
   dec(time_entity);
   if time_entity = 0 then begin
@@ -347,7 +347,7 @@ end;
 
 //:-------------------------------------------------------------:
 
-procedure snake_step;
+procedure snake_step; inline;
 begin
   snake_speed := GAME_SPEED - level;
   if snake_speed < SPEED_THOLD then snake_speed := SPEED_THOLD;
