@@ -318,8 +318,8 @@ end;
 
 procedure put_fruit;
 begin
-  prnd(1, 24, ROW_MASK); t0b := RND;
-  prnd(1, 27, COL_MASK); t1b := RND;
+  t0b := prnd(1, 24, ROW_MASK);
+  t1b := prnd(1, 27, COL_MASK);
 
   t0w := ROW_SIZE * t1b; inc(t0w, SCREEN_ADR); inc(t0w, t0b);
 
