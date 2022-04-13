@@ -353,7 +353,7 @@ asm
 
       mwa #SYS_VBI CINV               // register IRQ procedure
 
-      mva #0 RTCLOCK                  // reset raster
+      mva #0 RTCLOCK                  // reset raster clock
 
       lda #VBI_START                  // wait for 130 raster line
 @     cmp VICCR4
