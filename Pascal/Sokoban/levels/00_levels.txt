@@ -1,0 +1,29 @@
+http://borgar.net/programs/sokoban/#Intro
+
+  <select id="level">
+    <option value="Intro">Tutorial</option>
+    <option value="Sokoban">Sokoban</option>
+    <option value="Sokoban Jr. 1">Sokoban Jr. 1</option>
+    <option value="Sokoban Jr. 2">Sokoban Jr. 2</option>
+    <option value="Deluxe">Sokoban Deluxe</option>
+    <option value="Sokogen 990602">Sokogen 990602</option>
+    <option value="Xsokoban">Xsokoban</option>
+    <option value="David Holland 1">David Holland 1</option>
+    <option value="David Holland 2">David Holland 2</option>
+    <option value="Howard's 1st set">Howard's 1st set</option>
+    <option value="Howard's 2nd set">Howard's 2nd set</option>
+    <option value="Howard's 3rd set">Howard's 3rd set</option>
+    <option value="Howard's 4th set">Howard's 4th set</option>
+    <option value="Sasquatch">Sasquatch</option>
+    <option value="Mas Sasquatch">Mas Sasquatch</option>
+    <option value="Sasquatch III">Sasquatch III</option>
+    <option value="Sasquatch IV">Sasquatch IV</option>
+    <option value="Still more levels">Still more levels</option>
+    <option value="Nabokosmos">Nabokosmos</option>
+    <option value="Microcosmos">Microcosmos</option>
+    <option value="Microban">Microban</option>
+    <option value="Simple sokoban">Simple sokoban</option>
+    <option value="Dimitri and Yorick">Dimitri and Yorick</option>
+    <option value="Yoshio Automatic">Yoshio Automatic</option>
+  </select>
+

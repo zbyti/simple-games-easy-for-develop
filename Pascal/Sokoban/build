@@ -1,0 +1,6 @@
+#!/bin/bash
+
+[ -f game ] && rm game
+fpc -Mdelphi -Fu~/Projects/Pascal/SDL2/ src/main.pas
+[ -f src/main ] && mv src/main game && rm src/main.o
+[ ! -z "$1" ] && [ -f game ] && ./game
