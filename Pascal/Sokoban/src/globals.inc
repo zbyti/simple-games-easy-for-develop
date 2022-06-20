@@ -4,7 +4,7 @@ const
 
   loopWait    = round(1000/50);         //PAL=50, NTSC=60 frames per second
   intervalT1  = 100;
-  intervalT2  = 0;
+  intervalT2  = 200;
   tileSize    = 64;                     //64 originally (32 acceptable)
   resX        = 1920;
   resY        = 1200;

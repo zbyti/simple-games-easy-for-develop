@@ -62,6 +62,8 @@ begin
   sdlSrcRect  := initRect(0, 0);
   sdlDestRect := initRect(0, 0);
 
+  new(sdlEvent);
+
   if Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT,
     MIX_DEFAULT_CHANNELS, 4096) < 0 then Exit;
 
@@ -69,8 +71,6 @@ begin
   if sdlMusic = nil then Exit;
 
   Mix_VolumeMusic(MIX_MAX_VOLUME);
-
-  new(sdlEvent);
 end;
 
 //-------------------------------------
@@ -364,7 +364,6 @@ end;
 procedure loadSet;
 begin
   parseLv(gSets[gSet]);
-  lv := 0;
   setLevel;
 end;
 
