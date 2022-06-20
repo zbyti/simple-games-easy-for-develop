@@ -30,7 +30,6 @@ const
 
 //-----------------------------------------------------------------------------
 
-
 var
 
   sdlWindow         : PSDL_Window;
@@ -96,10 +95,9 @@ var
   bg           : byte = 0;
   highBgs      : byte;
 
-
-  playlist   : array [0..maxFiles] of byte;
-  music      : TFilesArray;
-  gameSets   : TFilesArray;
-  bgs        : TFilesArray;
+  playlist     : array [0..maxFiles] of byte;
+  music        : TFilesArray;
+  gameSets     : TFilesArray;
+  bgs          : TFilesArray;
 
 //-----------------------------------------------------------------------------
