@@ -73,6 +73,8 @@ begin
       for iy := 0 to y-1 do putGrass(0, iy);
       for iy := 0 to y-1 do putGrass(offset-1, iy);
 
+      //-------------------------------------
+
       sLevel := '';
 
       AppendStr(sLevel, char(offset));
@@ -80,6 +82,8 @@ begin
         for ix := 0 to offset-1 do AppendStr(sLevel, arena[iy][ix]);
 
       levels[i] := sLevel;
+
+      //-------------------------------------
 
       inc(i); y := 0;
 

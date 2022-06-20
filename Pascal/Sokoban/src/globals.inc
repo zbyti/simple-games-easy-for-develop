@@ -2,10 +2,9 @@
 
 const
 
-  loopWait    = round(1000/50);         //PAL=50, NTSC=60 frames per second
+  loopWait    = round(1000/50);             //PAL=50, NTSC=60 frames per second
   intervalT1  = 100;
-  intervalT2  = 200;
-  tileSize    = 64;                     //64 originally (32 acceptable)
+  tileSize    = 64;                         //64 originally (32 acceptable)
   resX        = 1920;
   resY        = 1200;
   windowSizeX = round(resX / tileSize) - 1; //0 indexed def 29
@@ -94,11 +93,8 @@ var
 
   sdlEvent          : PSDL_Event;
   sdlTimer1Id       : TSDL_TimerID;
-  sdlTimer2Id       : TSDL_TimerID;
   sdlTimer1CallBack : TSDL_TimerCallback;
-  sdlTimer2CallBack : TSDL_TimerCallback;
   scannedDir        : byte = 0;
-  paramT2           : boolean = false;
 
 //-------------------------------------
 
@@ -118,7 +114,6 @@ var
   gSet              : byte = 0;
   maxLv             : byte;
   isWall            : boolean = false;
-  nextMsx           : boolean = false;
 
 //-------------------------------------
 
@@ -128,7 +123,7 @@ var
 //-----------------------------------------------------------------------------
 
 const
-  maxMsx = 14;                          //zero indexed
+  maxMsx = 14;                              //zero indexed
 
 var
   playlist : array [0..maxMsx] of byte;
@@ -149,24 +144,6 @@ var
     'msx/discodel.xm',
     'msx/the norm.xm',
     'msx/placebo.xm'
-  );
-
-  musicDur : array [0..maxMsx] of dword = (
-    (1000 * 60 * 3) + (1000 *  9) + (10 * 16), // 3:09.16
-    (1000 * 60 * 4) + (1000 * 45) + (10 * 32), // 4:45.32
-    (1000 * 60 * 3) + (1000 * 16) + (10 * 59), // 3:16.59
-    (1000 * 60 * 4) + (1000 * 12) + (10 * 80), // 4:14.86
-    (1000 * 60 * 3) + (1000 * 31) + (10 * 75), // 3:31.75
-    (1000 * 60 * 3) + (1000 * 54) + (10 * 82), // 3:54.82
-    (1000 * 60 * 3) + (1000 * 47) + (10 * 88), // 3:47.88
-    (1000 * 60 * 3) + (1000 *  8) + (10 * 16), // 3:08.16
-    (1000 * 60 * 4) + (1000 * 18) + (10 * 65), // 4:18.65
-    (1000 * 60 * 3) + (1000 *  4) + (10 * 43), // 3:04.43
-    (1000 * 60 * 2) + (1000 * 59) + (10 * 80), // 2:59.80
-    (1000 * 60 * 3) + (1000 * 38) + (10 * 81), // 3:38.81
-    (1000 * 60 * 3) + (1000 * 37) + (10 * 10), // 3:37.10
-    (1000 * 60 * 3) + (1000 * 17) + (10 * 59), // 3:17.59
-    (1000 * 60 * 3) + (1000 * 26) + (10 * 42)  // 3:26.42
   );
 
 //-----------------------------------------------------------------------------

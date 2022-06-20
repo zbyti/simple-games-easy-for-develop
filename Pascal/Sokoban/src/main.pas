@@ -14,7 +14,6 @@ uses sysutils, SDL2, SDL2_image, SDL2_mixer;
 //-----------------------------------------------------------------------------
 
 function timer1(interval: UInt32; param: pointer): UInt32; cdecl; forward;
-function timer2(interval: UInt32; param: pointer): UInt32; cdecl; forward;
 
 //-------------------------------------
 
@@ -36,9 +35,7 @@ begin
   end;
 
   sdlTimer1CallBack := @timer1;
-  sdlTimer2CallBack := @timer2;
   sdlTimer1Id := SDL_AddTimer(intervalT1, sdlTimer1CallBack, @scannedDir);
-  sdlTimer2Id := SDL_AddTimer(intervalT2, sdlTimer2CallBack, @paramT2);
 
   SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, 'linear');
 
@@ -80,7 +77,6 @@ begin
   dispose(sdlEvent);
 
   SDL_RemoveTimer(sdlTimer1Id);
-  SDL_RemoveTimer(sdlTimer2Id);
 
   SDL_DestroyTexture(sdlTexture);
   SDL_DestroyTexture(sdlTextureBg);
@@ -407,14 +403,14 @@ end;
 procedure playMusic;
 begin
 
-  if nextMsx then begin
+  if Mix_PlayingMusic = 0 then begin
     sdlMusic := Mix_LoadMUS(music[playlist[msxCounter]]);
     if sdlMusic = nil then Exit;
     Mix_PlayMusic(sdlMusic, 0);
 
-    nextWall;
+    if msxCounter < maxMsx then inc(msxCounter) else msxCounter := 0;
 
-    nextMsx := false;
+    nextWall;
   end;
 end;
 
