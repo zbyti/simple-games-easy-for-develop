@@ -90,7 +90,7 @@ begin
     CloseFile(tfIn);
   except
     on E: EInOutError do
-     writeln('File', fname,'handling error occurred. Details: ', E.Message);
+      writeln('File', fname,'handling error occurred. Details: ', E.Message);
   end;
 end;
 

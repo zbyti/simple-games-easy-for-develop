@@ -31,7 +31,7 @@ end;
 procedure initSDL;
 begin
   if SDL_Init(SDL_INIT_VIDEO or SDL_INIT_TIMER or SDL_INIT_AUDIO) < 0 then begin
-    writeln('SDL could not initialize+');
+    writeln('SDL could not initialize!');
     HALT;
   end;
 
