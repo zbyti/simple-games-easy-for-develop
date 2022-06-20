@@ -27,9 +27,11 @@ end;
 
 //-------------------------------------
 
-function readDirectory(d: string; c: PByte): TFilesArray;
+function readDirectory(d: string; c: PByte; isSorted: boolean): TFilesArray;
 var
   info    : TSearchRec;
+  a       : TStringArray;
+  s       : string;
   counter : byte = 0;
 begin
   counter := 0;
@@ -40,7 +42,12 @@ begin
       with info do
         begin
           if Name[1] <> '.' then begin
-            readDirectory[counter] := d + Name;
+            if isSorted then begin
+              s := name;
+              a := s.split('_');
+              readDirectory[StrToInt(a[0])] := d + name;
+            end else
+              readDirectory[counter] := d + name;
             inc(counter);
           end;
         end;
@@ -463,9 +470,9 @@ end;
 
 procedure initAssetsArrays;
 begin
-  music    := readDirectory('msx/', @highMusic);
-  gameSets := readDirectory('lvs/', @highGameSets);
-  bgs      := readDirectory('bgs/', @highBgs);
+  music    := readDirectory('msx/', @highMusic, false);
+  gameSets := readDirectory('lvs/', @highGameSets, true);
+  bgs      := readDirectory('bgs/', @highBgs, false);
 
   shufflePlaylist;
 end;
