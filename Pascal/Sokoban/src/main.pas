@@ -467,7 +467,6 @@ end;
 begin
   randomize;
 
-  for i := 0 to maxSet do levels[i] := '';
   shufflePlaylist;
 
   initSDL;
