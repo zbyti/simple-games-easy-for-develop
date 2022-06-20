@@ -30,41 +30,11 @@ const
 
 //-----------------------------------------------------------------------------
 
-  bgs           : array [0..3] of PChar = (
-    'gfx/bg_desk.jpg',
-    'gfx/bg_suburbia.jpg',
-    'gfx/bg_island.jpg',
-    'gfx/bg_waterfalls.jpg'
-  );
+
 
 //-----------------------------------------------------------------------------
 
-  gSets         : array [0..23] of PChar = (
-    'levels/Intro.txt',
-    'levels/Sokoban.txt',
-    'levels/Sokoban Jr. 1.txt',
-    'levels/Sokoban Jr. 2.txt',
-    'levels/Deluxe.txt',
-    'levels/Sokogen 990602.txt',
-    'levels/Xsokoban.txt',
-    'levels/David Holland 1.txt',
-    'levels/David Holland 2.txt',
-    'levels/Howard''s 1st set.txt',
-    'levels/Howard''s 2nd set.txt',
-    'levels/Howard''s 3rd set.txt',
-    'levels/Howard''s 4th set.txt',
-    'levels/Sasquatch.txt',
-    'levels/Mas Sasquatch.txt',
-    'levels/Sasquatch III.txt',
-    'levels/Sasquatch IV.txt',
-    'levels/Still more levels.txt',
-    'levels/Nabokosmos.txt',
-    'levels/Microcosmos.txt',
-    'levels/Microban.txt',
-    'levels/Simple sokoban.txt',
-    'levels/Dimitri and Yorick.txt',
-    'levels/Yoshio Automatic.txt'
-  );
+
 
 //-----------------------------------------------------------------------------
 
@@ -100,8 +70,6 @@ var
 
   isEsc             : boolean = false;
   animFrame         : byte = 0;
-  bgCounter         : byte = 0;
-  msxCounter        : byte = 0;
   direction         : byte;
   ix, iy            : byte;
   decks, crates     : byte;
@@ -110,9 +78,6 @@ var
   centerX, centerY  : word;
   i                 : word;
   y, offset         : byte;
-  lv                : byte;
-  gSet              : byte = 0;
-  maxLv             : byte;
   isWall            : boolean = false;
 
 //-------------------------------------
@@ -123,27 +88,25 @@ var
 //-----------------------------------------------------------------------------
 
 const
-  maxMsx = 14;                              //zero indexed
+  maxFiles = 255;                             //zero indexed
+
+type
+  TFilesArray = array [0..maxFiles] of String;
 
 var
-  playlist : array [0..maxMsx] of byte;
+  lv           : byte;
+  maxLv        : byte;
+  msx          : byte = 0;
+  highMusic    : byte;
+  gs           : byte = 0;
+  highGameSets : byte;
+  bg           : byte = 0;
+  highBgs      : byte;
 
-  music    : array [0..maxMsx] of PChar = (
-    'msx/la blue girl.xm',
-    'msx/heal my peel.s3m',
-    'msx/afro superfly.xm',
-    'msx/in bed.s3m',
-    'msx/evening in the city.xm',
-    'msx/happyness without limit.it',
-    'msx/a rose of gold.xm',
-    'msx/intermission.xm',
-    'msx/over reacted.xm',
-    'msx/roundheeled.xm',
-    'msx/mooserun.xm',
-    'msx/true.xm',
-    'msx/discodel.xm',
-    'msx/the norm.xm',
-    'msx/placebo.xm'
-  );
+
+  playlist   : array [0..maxFiles] of byte;
+  music      : TFilesArray;
+  gameSets   : TFilesArray;
+  bgs        : TFilesArray;
 
 //-----------------------------------------------------------------------------

@@ -25,6 +25,35 @@ begin
   initRect.h := tileSize;
 end;
 
+//-------------------------------------
+
+function readDirectory(d: string; c: PByte): TFilesArray;
+var
+  info    : TSearchRec;
+  counter : byte = 0;
+begin
+  counter := 0;
+
+  if FindFirst (d + '*', faAnyFile, info) = 0 then begin
+
+    repeat
+      with info do
+        begin
+          if Name[1] <> '.' then begin
+            readDirectory[counter] := d + Name;
+            inc(counter);
+          end;
+        end;
+    until FindNext(info)<>0;
+
+    FindClose(Info);
+
+
+    c^ := counter - 1;
+  end;
+
+end;
+
 //-----------------------------------------------------------------------------
 
 procedure initSDL;
@@ -53,7 +82,7 @@ begin
   sdlTexture := IMG_LoadTexture(sdlRenderer, 'gfx/tilesheet.png');
   if sdlTexture = nil then HALT;
 
-  sdlTextureBg := IMG_LoadTexture(sdlRenderer, bgs[bgCounter]);
+  sdlTextureBg := IMG_LoadTexture(sdlRenderer, PChar(bgs[bg]));
   if sdlTextureBg = nil then HALT;
 
   sdlSrcRect  := initRect(0, 0);
@@ -64,7 +93,7 @@ begin
   if Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT,
     MIX_DEFAULT_CHANNELS, 4096) < 0 then Exit;
 
-  sdlMusic := Mix_LoadMUS(music[playlist[msxCounter]]);
+  sdlMusic := Mix_LoadMUS(PChar(music[playlist[msx]]));
   if sdlMusic = nil then Exit;
 
   Mix_VolumeMusic(MIX_MAX_VOLUME);
@@ -316,9 +345,9 @@ end;
 procedure nextWall;
 begin
   if isWall then begin
-    if bgCounter < High(bgs) then inc(bgCounter) else bgCounter := 0;
+    if bg < highBgs then inc(bg) else bg := 0;
 
-    sdlTextureBg := IMG_LoadTexture(sdlRenderer, bgs[bgCounter]);
+    sdlTextureBg := IMG_LoadTexture(sdlRenderer, PChar(bgs[bg]));
     if sdlTextureBg = nil then HALT;
 
     setBackground;
@@ -359,19 +388,19 @@ end;
 
 procedure loadSet;
 begin
-  parseLv(gSets[gSet]);
+  parseLv(gameSets[gs]);
   setLevel;
 end;
 
 procedure nextSet;
 begin
-  if gSet < High(gSets) then inc(gSet) else gSet := 0;
+  if gs < highGameSets then inc(gs) else gs := 0;
   loadSet;
 end;
 
 procedure backSet;
 begin
-  if gSet > 0 then dec(gSet) else gSet := High(gSets);
+  if gs > 0 then dec(gs) else gs := highGameSets;
   loadSet;
 end;
 
@@ -404,11 +433,11 @@ procedure playMusic;
 begin
 
   if Mix_PlayingMusic = 0 then begin
-    sdlMusic := Mix_LoadMUS(music[playlist[msxCounter]]);
+    sdlMusic := Mix_LoadMUS(PChar(music[playlist[msx]]));
     if sdlMusic = nil then Exit;
     Mix_PlayMusic(sdlMusic, 0);
 
-    if msxCounter < maxMsx then inc(msxCounter) else msxCounter := 0;
+    if msx < highMusic then inc(msx) else msx := 0;
 
     nextWall;
   end;
@@ -420,14 +449,25 @@ procedure shufflePlaylist;
 var
   i, r, tmp: byte;
 begin
-  for i := 0 to maxMsx do playlist[i] := i;
+  for i := 0 to highMusic do playlist[i] := i;
 
-  for i := 0 to maxMsx do begin
-    r := random(maxMsx + 1);
+  for i := 0 to highMusic do begin
+    r := random(highMusic + 1);
     tmp := playlist[i];
     playlist[i] := playlist[r];
     playlist[r] := tmp;
   end;
+end;
+
+//-------------------------------------
+
+procedure initAssetsArrays;
+begin
+  music    := readDirectory('msx/', @highMusic);
+  gameSets := readDirectory('lvs/', @highGameSets);
+  bgs      := readDirectory('bgs/', @highBgs);
+
+  shufflePlaylist;
 end;
 
 
@@ -463,8 +503,7 @@ end;
 begin
   randomize;
 
-  shufflePlaylist;
-
+  initAssetsArrays;
   initSDL;
   loadSet;
 
