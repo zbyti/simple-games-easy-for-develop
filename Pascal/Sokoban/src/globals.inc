@@ -80,7 +80,7 @@ var
 //-----------------------------------------------------------------------------
 
 const
-  maxFiles = 255;                             //zero indexed
+  maxFiles = 63;                             //zero indexed
 
 type
   TFilesArray = array [0..maxFiles] of string;

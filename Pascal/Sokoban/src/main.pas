@@ -30,9 +30,9 @@ end;
 function readDirectory(d: string; c: PByte; isSorted: boolean): TFilesArray;
 var
   info    : TSearchRec;
-  a       : TStringArray;
   s       : string;
   counter : byte = 0;
+  i       : byte;
 begin
   counter := 0;
 
@@ -42,12 +42,12 @@ begin
       with info do
         begin
           if Name[1] <> '.' then begin
+            i := counter;
             if isSorted then begin
               s := name;
-              a := s.split('_');
-              readDirectory[StrToInt(a[0])] := d + name;
-            end else
-              readDirectory[counter] := d + name;
+              i := StrToInt(s.split('_')[0]);
+            end;
+            readDirectory[i] := d + name;
             inc(counter);
           end;
         end;
