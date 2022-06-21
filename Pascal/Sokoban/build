@@ -1,6 +1,14 @@
 #!/bin/bash
 
+#https://github.com/PascalGameDevelopment/SDL2-for-Pascal
+SDL="$HOME/Projects/Pascal/SDL2/units"
+
+if [ ! -d $SDL ]; then
+  echo -e "\nPut SDL2 libraries on patch: fpc -Mdelphi -Fu<patch>\n"
+  exit 1
+fi
+
 [ -f game ] && rm game
-fpc -Mdelphi -Fu~/Projects/Pascal/SDL2/ src/main.pas
+fpc -Mdelphi -Fu$SDL src/main.pas
 [ -f src/main ] && mv src/main game && rm src/main.o
 [ ! -z "$1" ] && [ -f game ] && ./game
