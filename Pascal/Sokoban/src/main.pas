@@ -218,7 +218,7 @@ procedure updateArena;
 var
   updatePos           : boolean = false;
   pX, pY              : byte;
-  step0, step1, step2 : PChar;
+  step0, step1, step2 : ^char;
 begin
   step0 := @arena[playerY][playerX];
 
@@ -265,8 +265,8 @@ begin
   begin
     if step2^ = ' ' then step2^ := '$' else step2^ := '*';
 
-    if (step1^ = '$') and (step2^ = '*') then inc(crates) else
-    if (step1^ = '*') and (step2^ = '$') then dec(crates);
+    if (step1^ = '$') and (step2^ = '*') then dec(crates) else
+    if (step1^ = '*') and (step2^ = '$') then inc(crates);
 
     if step1^ = '$' then step1^ := '@' else step1^ := '!';
 
@@ -285,7 +285,7 @@ end;
 
 procedure resetArena;
 begin
-  decks := 0; crates := 0; iy := 0; ix := 0;
+  crates := 0; iy := 0; ix := 0;
   direction := 0; animFrame := 0;
 
   sdlPlayerRect.x := playerMapX;
@@ -294,8 +294,7 @@ begin
   for i := 2 to length(levels[lv]) do begin
     arena[iy][ix] := levels[lv][i];
 
-    if (levels[lv][i] = '.') or ((levels[lv][i] = '*') or (levels[lv][i] = '!')) then inc(decks);
-    if levels[lv][i] = '*' then inc(crates) else
+    if levels[lv][i] = '$' then inc(crates) else
 
     if (levels[lv][i] = '@') or (levels[lv][i] = '!') then begin
       playerX := ix;
@@ -488,7 +487,7 @@ begin
 
     playMusic;
 
-    if decks = crates then begin
+    if crates = 0 then begin
       if lv < maxLv then begin
         inc(lv);
         setLevel;

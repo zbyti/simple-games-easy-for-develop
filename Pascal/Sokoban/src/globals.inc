@@ -64,7 +64,7 @@ var
   animFrame         : byte = 0;
   direction         : byte;
   ix, iy            : byte;
-  decks, crates     : byte;
+  crates            : byte;
   lvSizeX, lvSizeY  : byte;
   playerX, playerY  : byte;
   centerX, centerY  : word;
