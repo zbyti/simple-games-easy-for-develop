@@ -13,7 +13,6 @@ const
   SETVBV    = $E45C;
   XITVBV    = $E462;
 
-
   BOARD_GFX  = $9c00;
   MPT_PLAYER = $a000;
   MPT_MODUL  = $a500;
@@ -40,10 +39,12 @@ var
 
 procedure setVbk(mode, msb, lsb: byte); assembler;
 asm
+  phr
   lda mode
   ldx msb
   ldy lsb
   jsr SETVBV
+  plr
 end;
 
 procedure exitVbk; assembler; inline;
